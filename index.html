@@ -9,19 +9,58 @@
 <body>
 
 <div class="container">
-    <h1>Expense Tracker</h1>
-<input type="text" id="username" placeholder="Enter Your Name">
-    <h2>Balance: ₹<span id="balance">0</span></h2>
 
-    <input type="text" id="desc" placeholder="Description">
-    <input type="number" id="amount" placeholder="Amount">
+    <h1>💰 Expense Tracker</h1>
+
+    <input type="text" id="username" placeholder="Enter Your Name">
+
+    <div class="summary">
+        <div class="card income">
+            <h3>Income</h3>
+            <p>₹<span id="income">0</span></p>
+        </div>
+
+        <div class="card expense">
+            <h3>Expense</h3>
+            <p>₹<span id="expense">0</span></p>
+        </div>
+    </div>
+
+    <div class="balance-card">
+        <h2>Current Balance</h2>
+        <h1>₹<span id="balance">0</span></h1>
+    </div>
+
+    <input type="text" id="desc" placeholder="Expense / Income Description">
+
+    <input type="number" id="amount" placeholder="Enter Amount">
+
     <input type="date" id="date">
 
-    <button onclick="addIncome()">Add Income</button>
-    <button onclick="addExpense()">Add Expense</button>
+    <div class="buttons">
+        <button class="income-btn" onclick="addIncome()">
+            ➕ Add Income
+        </button>
 
-    <h3>Transactions</h3>
+        <button class="expense-btn" onclick="addExpense()">
+            ➖ Add Expense
+        </button>
+    </div>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search Transactions"
+        onkeyup="searchTransaction()">
+
+    <h2>Transaction History</h2>
+
     <ul id="list"></ul>
+
+    <button class="dark-btn" onclick="toggleDarkMode()">
+        🌙 Dark Mode
+    </button>
+
 </div>
 
 <script src="script.js"></script>
