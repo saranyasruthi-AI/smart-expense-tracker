@@ -7,6 +7,7 @@ function updateBalance() {
 function addIncome() {
     const desc = document.getElementById("desc").value;
     const amount = Number(document.getElementById("amount").value);
+    const date = document.getElementById("date").value;
 
     if (desc === "" || amount <= 0) {
         alert("Please enter a valid description and amount.");
@@ -17,7 +18,7 @@ function addIncome() {
     updateBalance();
 
     const li = document.createElement("li");
-    li.textContent = `🟢 ${desc} : ₹${amount}`;
+    li.textContent = `📅 ${date} | 🟢 ${desc} : ₹${amount}`;
     document.getElementById("list").appendChild(li);
 
     document.getElementById("desc").value = "";
@@ -25,6 +26,7 @@ function addIncome() {
 }
 
 function addExpense() {
+    const date = document.getElementById("date").value;
     const desc = document.getElementById("desc").value;
     const amount = Number(document.getElementById("amount").value);
 
@@ -37,7 +39,7 @@ function addExpense() {
     updateBalance();
 
     const li = document.createElement("li");
-    li.textContent = `🔴 ${desc} : ₹${amount}`;
+    li.textContent = `📅 ${date} | 🔴 ${desc} : ₹${amount}`;
     document.getElementById("list").appendChild(li);
 
     document.getElementById("desc").value = "";
