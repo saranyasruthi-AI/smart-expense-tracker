@@ -1,158 +1,67 @@
-let balance = 0;
-let income = 0;
-let expense = 0;
+// =========================
+// Smart Expense Tracker
+// =========================
+
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
-function updateValues() {
-    document.getElementById("balance").textContent = balance;
-    document.getElementById("income").textContent = income;
-    document.getElementById("expense").textContent = expense;
+const incomeEl = document.getElementById("income");
+const expenseEl = document.getElementById("expense");
+const balanceEl = document.getElementById("balance");
+const list = document.getElementById("list");
+
+displayTransactions();
+updateSummary();
+
+function addIncome() {
+    addTransaction("Income");
 }
 
-function saveData() {
-    localStorage.setItem("transactions", JSON.stringify(transactions));
+function addExpense() {
+    addTransaction("Expense");
 }
 
-function createTransaction(transaction) {
+function addTransaction(type) {
 
-    const li = document.createElement("li");
+    const amount = Number(document.getElementById("amount").value);
 
-    li.innerHTML = `
-        <b>${transaction.type==="Income"?"🟢":"🔴"} ${transaction.description}</b><br>
-        📅 ${transaction.date}<br>
-        ₹${transaction.amount}
-        <button style="float:right;background:red;color:white;border:none;padding:5px;border-radius:5px;">❌</button>
-    `;
+    const category = document.getElementById("category").value;
 
-    li.querySelector("button").onclick = function () {
+    const note = document.getElementById("desc").value;
 
-        if(transaction.type==="Income"){
-            income -= transaction.amount;
-            balance -= transaction.amount;
-        }else{
-            expense -= transaction.amount;
-            balance += transaction.amount;
-        }
-
-        transactions = transactions.filter(t => t.id !== transaction.id);
-
-        updateValues();
-        saveData();
-
-        li.remove();
-
-    };
-
-    document.getElementById("list").appendChild(li);
-
-}
-
-function addIncome(){
-
-    const desc=document.getElementById("desc").value;
-    const amount=Number(document.getElementById("amount").value);
-    const date=document.getElementById("date").value;
-
-    if(desc==="" || amount<=0 || date===""){
-        alert("Please fill all fields");
+    if (amount <= 0 || category === "") {
+        alert("Please enter valid details.");
         return;
     }
 
-    income+=amount;
-    balance+=amount;
+    const now = new Date();
 
-    const transaction={
-        id:Date.now(),
-        type:"Income",
-        description:desc,
-        amount:amount,
-        date:date
+    const transaction = {
+
+        id: Date.now(),
+
+        type: type,
+
+        category: category,
+
+        note: note,
+
+        amount: amount,
+
+        date: now.toLocaleDateString(),
+
+        time: now.toLocaleTimeString()
+
     };
 
     transactions.push(transaction);
 
-    createTransaction(transaction);
-
-    updateValues();
     saveData();
 
-    document.getElementById("desc").value="";
-    document.getElementById("amount").value="";
-    document.getElementById("date").value="";
-}
+    displayTransactions();
 
-function addExpense(){
+    updateSummary();
 
-    const desc=document.getElementById("desc").value;
-    const amount=Number(document.getElementById("amount").value);
-    const date=document.getElementById("date").value;
-
-    if(desc==="" || amount<=0 || date===""){
-        alert("Please fill all fields");
-        return;
-    }
-
-    expense+=amount;
-    balance-=amount;
-
-    const transaction={
-        id:Date.now(),
-        type:"Expense",
-        description:desc,
-        amount:amount,
-        date:date
-    };
-
-    transactions.push(transaction);
-
-    createTransaction(transaction);
-
-    updateValues();
-    saveData();
-
-    document.getElementById("desc").value="";
-    document.getElementById("amount").value="";
-    document.getElementById("date").value="";
-}
-
-function searchTransaction(){
-
-    const value=document.getElementById("search").value.toLowerCase();
-
-    const items=document.querySelectorAll("#list li");
-
-    items.forEach(item=>{
-
-        item.style.display=item.textContent.toLowerCase().includes(value)
-        ? "block"
-        : "none";
-
-    });
+    clearInputs();
+    
 
 }
-
-function toggleDarkMode(){
-
-    document.body.classList.toggle("dark");
-
-}
-
-window.onload=function(){
-
-    transactions.forEach(transaction=>{
-
-        if(transaction.type==="Income"){
-            income+=transaction.amount;
-            balance+=transaction.amount;
-        }else{
-            expense+=transaction.amount;
-            balance-=transaction.amount;
-        }
-
-        createTransaction(transaction);
-
-    });
-
-    updateValues();
-
-};
