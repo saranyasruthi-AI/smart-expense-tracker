@@ -1,69 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
 <div class="container">
 
-    <h1>💰 Expense Tracker</h1>
+    <div class="header">
+        <h1>💰 Smart Expense Tracker</h1>
+        <p>Track your income & expenses easily</p>
+    </div>
 
-    <input type="text" id="username" placeholder="Enter Your Name">
+    <div class="welcome-card">
+        <label>Your Name</label>
+        <input type="text" id="username" placeholder="Enter Your Name">
+    </div>
 
     <div class="summary">
-        <div class="card income">
-            <h3>Income</h3>
-            <p>₹<span id="income">0</span></p>
+
+        <div class="card income-card">
+            <h3>💚 Income</h3>
+            <h2 id="income">₹0</h2>
         </div>
 
-        <div class="card expense">
-            <h3>Expense</h3>
-            <p>₹<span id="expense">0</span></p>
+        <div class="card expense-card">
+            <h3>❤️ Expense</h3>
+            <h2 id="expense">₹0</h2>
         </div>
+
+        <div class="card balance-card">
+            <h3>💙 Balance</h3>
+            <h2 id="balance">₹0</h2>
+        </div>
+
     </div>
 
-    <div class="balance-card">
-        <h2>Current Balance</h2>
-        <h1>₹<span id="balance">0</span></h1>
-    </div>
+    <div class="transaction-box">
 
-    <input type="text" id="desc" placeholder="Expense / Income Description">
+        <h2>Add Transaction</h2>
 
-    <input type="number" id="amount" placeholder="Enter Amount">
+        <input
+        type="number"
+        id="amount"
+        placeholder="Enter Amount">
 
-    <input type="date" id="date">
+        <input
+        type="date"
+        id="date">
+        <select id="type">
 
-    <div class="buttons">
-        <button class="income-btn" onclick="addIncome()">
-            ➕ Add Income
-        </button>
+<option value="">Select Type</option>
 
-        <button class="expense-btn" onclick="addExpense()">
-            ➖ Add Expense
-        </button>
-    </div>
+<option value="Income">
+💰 Income
+</option>
 
-    <input
-        type="text"
-        id="search"
-        placeholder="🔍 Search Transactions"
-        onkeyup="searchTransaction()">
+<option value="Expense">
+💸 Expense
+</option>
 
-    <h2>Transaction History</h2>
+</select>
 
-    <ul id="list"></ul>
+<select id="category">
 
-    <button class="dark-btn" onclick="toggleDarkMode()">
-        🌙 Dark Mode
-    </button>
+<option value="">
+Select Category
+</option>
+
+<optgroup label="Income">
+
+<option>💼 Salary</option>
+
+<option>💵 Freelancing</option>
+
+<option>🎁 Gift</option>
+
+<option>📈 Investment</option>
+
+<option>🏦 Interest</option>
+
+<option>💸 Refund</option>
+
+<option>🛍 Cashback</option>
+
+<option>📦 Other Income</option>
+
+</optgroup>
+
+<optgroup label="Expense">
+
+<option>🍔 Food</option>
+
+<option>🚌 Transport</option>
+
+<option>🏠 Rent</option>
+
+<option>🛒 Shopping</option>
+
+<option>💡 Electricity</option>
+
+<option>📱 Mobile Recharge</option>
+
+<option>🌐 Internet</option>
+
+<option>⛽ Fuel</option>
+
+<option>💊 Medical</option>
+
+<option>📚 Education</option>
+
+<option>🎬 Entertainment</option>
+
+<option>👕 Clothing</option>
+
+<option>✈ Travel</option>
+
+<option>🎁 Gifts</option>
+
+<option>📦 Other Expense</option>
+
+</optgroup>
+
+</select>
+
+<input
+type="text"
+id="desc"
+placeholder="Notes (Optional)">
+<div class="buttons">
+
+<button onclick="addIncome()">
+➕ Add Income
+</button>
+
+<button onclick="addExpense()">
+➖ Add Expense
+</button>
 
 </div>
+</div>
+<div class="search-box">
 
-<script src="script.js"></script>
+<input
+type="text"
+id="search"
+placeholder="🔍 Search Transaction"
+onkeyup="searchTransaction()">
 
-</body>
-</html>
+</div>
+<div class="history">
+
+<h2>
+📜 Transaction History
+</h2>
+
+<ul id="list">
+
+</ul>
+
+</div>
