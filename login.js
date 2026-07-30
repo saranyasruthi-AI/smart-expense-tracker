@@ -19,6 +19,6 @@ function guestLogin() {
 
     localStorage.setItem("username", "Guest");
 
-    window.location.href = "index.html";
+    window.location.href = "home.html";
 
 }
