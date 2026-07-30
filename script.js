@@ -1,436 +1,286 @@
 // ===============================
-// Smart Expense Tracker
-// Premium Version
+// SMART EXPENSE TRACKER
 // ===============================
 
-let transactions =
-JSON.parse(localStorage.getItem("transactions")) || [];
+// Load saved transactions
+let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
+// Elements
 const incomeEl = document.getElementById("income");
 const expenseEl = document.getElementById("expense");
 const balanceEl = document.getElementById("balance");
 const list = document.getElementById("list");
 
-// Welcome User
+// ===============================
+// ADD BUTTONS
+// ===============================
 
-const username =
-localStorage.getItem("username") || "Guest";
-
-const welcome =
-document.getElementById("welcome");
-
-if(welcome){
-
-const hour = new Date().getHours();
-
-let greet = "Hello";
-
-if(hour < 12){
-
-greet = "🌅 Good Morning";
-
+function addIncome() {
+    addTransaction("Income");
 }
 
-else if(hour < 17){
-
-greet = "☀️ Good Afternoon";
-
-}
-
-else{
-
-greet = "🌙 Good Evening";
-
-}
-
-welcome.innerHTML =
-`${greet}, <b>${username}</b> 👋`;
-
+function addExpense() {
+    addTransaction("Expense");
 }
 
 // ===============================
-// Add Income
+// ADD TRANSACTION
 // ===============================
 
-function addIncome(){
+function addTransaction(type) {
 
-addTransaction("Income");
+    const amount = Number(document.getElementById("amount").value);
 
-}
+    const category = document.getElementById("category").value;
 
-// ===============================
-// Add Expense
-// ===============================
+    const note = document.getElementById("desc").value.trim();
 
-function addExpense(){
-
-addTransaction("Expense");
-
-}
-
-// ===============================
-// Add Transaction
-// ===============================
-
-function addTransaction(type){
-
-const amount =
-Number(document.getElementById("amount").value);
-
-const category =
-document.getElementById("category").value;
-
-const note =
-document.getElementById("desc").value.trim();
-
-if(amount <= 0){
-
-alert("Enter valid amount.");
-
-return;
-
-}
-
-if(category === ""){
-
-alert("Select a category.");
-
-return;
-
-}
-
-const now = new Date();
-
-const transaction={
-
-id:Date.now(),
-
-type:type,
-
-category:category,
-
-note:note,
-
-amount:amount,
-
-date:now.toLocaleDateString(),
-
-time:now.toLocaleTimeString()
-
-};
-
-transactions.push(transaction);
-
-saveData();
-
-displayTransactions();
-
-updateSummary();
-
-clearInputs();
-
-}
-// ===============================
-// Display Transactions
-// ===============================
-
-function displayTransactions(){
-
-list.innerHTML="";
-
-const reversed=[...transactions].reverse();
-
-reversed.forEach(transaction=>{
-
-const li=document.createElement("li");
-
-li.className=
-transaction.type==="Income"
-?"income-item"
-:"expense-item";
-
-li.innerHTML=`
-
-<div class="details">
-
-<h3>${transaction.category}</h3>
-
-<p>${transaction.note || "No Notes"}</p>
-
-<small>📅 ${transaction.date} | 🕒 ${transaction.time}</small>
-
-</div>
-
-<div style="text-align:right;">
-
-<h3 style="color:${
-transaction.type==="Income"
-?"#43AA5C"
-:"#E63946"
-};">
-
-${transaction.type==="Income"?"+":"-"} ₹${transaction.amount}
-
-</h3>
-
-<button
-class="delete-btn"
-onclick="deleteTransaction(${transaction.id})">
-
-🗑
-
-</button>
-
-</div>
-
-`;
-
-list.appendChild(li);
-
-});
-
-}
-
-// ===============================
-// Delete Transaction
-// ===============================
-
-function deleteTransaction(id){
-
-transactions=
-transactions.filter(
-item=>item.id!==id
-);
-
-saveData();
-
-displayTransactions();
-
-updateSummary();
-
-}
-
-// ===============================
-// Save Data
-// ===============================
-
-function saveData(){
-
-localStorage.setItem(
-"transactions",
-JSON.stringify(transactions)
-);
-
-                 }
-// ===============================
-// Update Summary
-// ===============================
-
-function updateSummary(){
-
-let income = 0;
-let expense = 0;
-
-transactions.forEach(item=>{
-
-if(item.type==="Income"){
-
-income += item.amount;
-
-}else{
-
-expense += item.amount;
-
-}
-
-});
-
-const balance = income - expense;
-
-incomeEl.textContent = "₹" + income.toLocaleString();
-
-expenseEl.textContent = "₹" + expense.toLocaleString();
-
-balanceEl.textContent = "₹" + balance.toLocaleString();
-
-}
-
-// ===============================
-// Clear Inputs
-// ===============================
-
-function clearInputs(){
-
-document.getElementById("amount").value = "";
-
-document.getElementById("category").value = "";
-
-document.getElementById("desc").value = "";
-
-}
-
-// ===============================
-// Search Transactions
-// ===============================
-
-function searchTransaction(){
-
-const value =
-document.getElementById("search")
-.value
-.toLowerCase();
-
-const items =
-document.querySelectorAll("#list li");
-
-items.forEach(item=>{
-
-item.style.display =
-item.innerText.toLowerCase().includes(value)
-? "flex"
-: "none";
-
-});
-
-}
-// Load Saved Data
-displayTransactions();
-updateSummary();
-
-// ===============================
-// Load Dashboard
-// ===============================
-
-displayTransactions();
-
-updateSummary();
-// ===============================
-// Success Message
-// ===============================
-
-function showSuccess(message){
-
-const old=document.querySelector(".success-popup");
-
-if(old){
-old.remove();
-}
-
-const popup=document.createElement("div");
-
-popup.className="success-popup";
-
-popup.innerHTML=message;
-
-document.body.appendChild(popup);
-
-setTimeout(()=>{
-
-popup.style.opacity="0";
-popup.style.transform="translateY(-20px)";
-
-setTimeout(()=>popup.remove(),300);
-
-},2000);
-
-}
-
-// ===============================
-// Replace alert with popup
-// ===============================
-
-const originalAddTransaction = addTransaction;
-
-addTransaction = function(type){
-
-const amount =
-Number(document.getElementById("amount").value);
-
-const category =
-document.getElementById("category").value;
-
-const note =
-document.getElementById("desc").value.trim();
-
-if(amount<=0){
-
-showSuccess("⚠️ Please enter a valid amount.");
-
-return;
-
-}
-
-if(category===""){
-
-showSuccess("📂 Please select a category.");
-
-return;
-
-}
-
-const now=new Date();
-
-transactions.push({
-
-id:Date.now(),
-
-type,
-
-category,
-
-note,
-
-amount,
-
-date:now.toLocaleDateString(),
-
-time:
-  // ===============================
-// PIE CHART
-// ===============================
-
-let expenseChart;
-
-function updateChart() {
-
-    const income = transactions
-        .filter(t => t.type === "Income")
-        .reduce((sum, t) => sum + t.amount, 0);
-
-    const expense = transactions
-        .filter(t => t.type === "Expense")
-        .reduce((sum, t) => sum + t.amount, 0);
-
-    const ctx = document.getElementById("expenseChart");
-
-    if (!ctx) return;
-
-    if (expenseChart) {
-        expenseChart.destroy();
+    if (amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
     }
 
-    expenseChart = new Chart(ctx, {
-        type: "doughnut",
-        data: {
-            labels: ["Income 💚", "Expense ❤️"],
-            datasets: [{
-                data: [income, expense],
-                backgroundColor: [
-                    "#6BCB77",
-                    "#F76C6C"
-                ],
-                borderWidth: 3,
-                borderColor: "#ffffff"
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: "bottom"
-                }
-            }
-        }
+    if (category === "") {
+        alert("Please select a category.");
+        return;
+    }
+
+    const now = new Date();
+
+    const transaction = {
+
+        id: Date.now(),
+
+        type: type,
+
+        category: category,
+
+        note: note,
+
+        amount: amount,
+
+        date: now.toLocaleDateString(),
+
+        time: now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        })
+
+    };
+
+    transactions.push(transaction);
+
+    saveData();
+
+    displayTransactions();
+
+    updateSummary();
+
+    clearInputs();
+
+}  
+// ===============================
+// DISPLAY TRANSACTIONS
+// ===============================
+
+function displayTransactions() {
+
+    list.innerHTML = "";
+
+    transactions.slice().reverse().forEach(transaction => {
+
+        const li = document.createElement("li");
+
+        li.className = transaction.type === "Income"
+            ? "income-item"
+            : "expense-item";
+
+        li.innerHTML = `
+            <div>
+                <strong>${transaction.category}</strong><br>
+                <small>${transaction.note || "No Notes"}</small><br>
+                <small>📅 ${transaction.date} | 🕒 ${transaction.time}</small>
+            </div>
+
+            <div style="text-align:right;">
+                <strong style="color:${transaction.type === "Income" ? "#43AA5C" : "#E63946"}">
+                    ${transaction.type === "Income" ? "+" : "-"} ₹${transaction.amount}
+                </strong>
+                <br><br>
+                <button class="delete-btn"
+                onclick="deleteTransaction(${transaction.id})">
+                    🗑️
+                </button>
+            </div>
+        `;
+
+        list.appendChild(li);
+
     });
 
 }
+
+// ===============================
+// DELETE TRANSACTION
+// ===============================
+
+function deleteTransaction(id) {
+
+    transactions = transactions.filter(item => item.id !== id);
+
+    saveData();
+
+    displayTransactions();
+
+    updateSummary();
+
+}
+
+// ===============================
+// SAVE DATA
+// ===============================
+
+function saveData() {
+
+    localStorage.setItem(
+        "transactions",
+        JSON.stringify(transactions)
+    );
+}
+// ===============================
+// UPDATE SUMMARY
+// ===============================
+
+function updateSummary() {
+
+    let income = 0;
+    let expense = 0;
+
+    transactions.forEach(transaction => {
+
+        if (transaction.type === "Income") {
+            income += transaction.amount;
+        } else {
+            expense += transaction.amount;
+        }
+
+    });
+
+    const balance = income - expense;
+
+    incomeEl.textContent = "₹" + income.toLocaleString();
+
+    expenseEl.textContent = "₹" + expense.toLocaleString();
+
+    balanceEl.textContent = "₹" + balance.toLocaleString();
+
+}
+
+// ===============================
+// CLEAR INPUTS
+// ===============================
+
+function clearInputs() {
+
+    document.getElementById("amount").value = "";
+    document.getElementById("category").value = "";
+    document.getElementById("desc").value = "";
+
+}
+
+// ===============================
+// SEARCH TRANSACTIONS
+// ===============================
+
+function searchTransaction() {
+
+    const searchValue = document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    const items = document.querySelectorAll("#list li");
+
+    items.forEach(item => {
+
+        if (item.innerText.toLowerCase().includes(searchValue)) {
+            item.style.display = "flex";
+        } else {
+            item.style.display = "none";
+        }
+
+    });
+
+}
+
+// ===============================
+// INITIAL LOAD
+// =================
+// ===============================
+// WELCOME USER
+// ===============================
+
+const username = localStorage.getItem("username");
+
+const welcome = document.getElementById("welcome");
+
+if (welcome) {
+
+    if (username) {
+
+        welcome.innerHTML = 👋 Welcome, <b>${username}</b>;
+
+    } else {
+
+        welcome.innerHTML = 👋 Welcome;
+
+    }
+
+}
+
+// ===============================
+// DATE & TIME
+// ===============================
+
+const today = document.getElementById("today");
+
+if (today) {
+
+    const now = new Date();
+
+    today.innerHTML =
+        "📅 " +
+        now.toLocaleDateString() +
+        " | 🕒 " +
+        now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+}
+
+// ===============================
+// ENTER KEY SUPPORT
+// ===============================
+
+document.getElementById("amount")?.addEventListener("keypress", function (e) {
+
+    if (e.key === "Enter") {
+
+        addIncome();
+
+    }
+
+});
+
+// ===============================
+// LOAD SAVED DATA
+// ===============================
+
+window.onload = function () {
+
+    displayTransactions();
+
+    updateSummary();
+
+};
