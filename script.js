@@ -382,3 +382,52 @@ amount,
 date:now.toLocaleDateString(),
 
 time:
+  // ===============================
+// PIE CHART
+// ===============================
+
+let expenseChart;
+
+function updateChart() {
+
+    const income = transactions
+        .filter(t => t.type === "Income")
+        .reduce((sum, t) => sum + t.amount, 0);
+
+    const expense = transactions
+        .filter(t => t.type === "Expense")
+        .reduce((sum, t) => sum + t.amount, 0);
+
+    const ctx = document.getElementById("expenseChart");
+
+    if (!ctx) return;
+
+    if (expenseChart) {
+        expenseChart.destroy();
+    }
+
+    expenseChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Income 💚", "Expense ❤️"],
+            datasets: [{
+                data: [income, expense],
+                backgroundColor: [
+                    "#6BCB77",
+                    "#F76C6C"
+                ],
+                borderWidth: 3,
+                borderColor: "#ffffff"
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+
+}
