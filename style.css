@@ -396,3 +396,131 @@ body::after{
 ::-webkit-scrollbar-track{
     background:#F5F5F5;
 }
+/* ===========================
+   PIE CHART SECTION
+=========================== */
+
+.chart-container{
+    background:rgba(255,255,255,.90);
+    backdrop-filter:blur(12px);
+    margin-top:25px;
+    padding:25px;
+    border-radius:22px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.chart-container canvas{
+    max-width:320px;
+    margin:auto;
+}
+
+/* ===========================
+   EXPORT BUTTONS
+=========================== */
+
+.export-buttons{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.export-buttons button{
+    flex:1;
+    min-width:150px;
+    border:none;
+    padding:14px;
+    border-radius:14px;
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.export-buttons button:first-child{
+    background:linear-gradient(135deg,#FF9800,#FB8C00);
+}
+
+.export-buttons button:last-child{
+    background:linear-gradient(135deg,#5B8DEF,#3A6FE2);
+}
+
+.export-buttons button:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 25px rgba(0,0,0,.15);
+}
+
+/* ===========================
+   FLOATING ANIMATION
+=========================== */
+
+.card,
+.transaction-box,
+.history,
+.search-box,
+.chart-container{
+    animation:floatCard .6s ease;
+}
+
+@keyframes floatCard{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+=========================== */
+
+@media(max-width:768px){
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    .export-buttons{
+        flex-direction:column;
+    }
+
+    .header h1{
+        font-size:30px;
+    }
+
+    .card h2{
+        font-size:26px;
+    }
+
+    .container{
+        padding:15px;
+    }
+
+}
+
+/* ===========================
+   FOOTER (Optional)
+=========================== */
+
+footer{
+    text-align:center;
+    margin-top:30px;
+    color:#666;
+    font-size:14px;
+}
+
+/* ===========================
+   END OF CSS
+=========================== */
