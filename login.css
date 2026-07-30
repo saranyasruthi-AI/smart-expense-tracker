@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:linear-gradient(135deg,#FFF7ED,#FFE8D6,#EAF4FF);
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:420px;
+    background:rgba(255,255,255,.95);
+    border-radius:25px;
+    padding:40px 30px;
+    text-align:center;
+    box-shadow:0 20px 40px rgba(0,0,0,.12);
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    margin:auto;
+    border-radius:50%;
+    background:#F4A261;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.login-box h1{
+    color:#333;
+    margin-bottom:10px;
+    font-size:30px;
+}
+
+.login-box p{
+    color:#777;
+    margin-bottom:30px;
+}
+
+.login-box input{
+    width:100%;
+    padding:15px;
+    border:none;
+    outline:none;
+    background:#F5F5F5;
+    border-radius:12px;
+    font-size:16px;
+    margin-bottom:20px;
+}
+.login-box input:focus{
+    border:2px solid #5B8DEF;
+    background:#fff;
+    box-shadow:0 0 10px rgba(91,141,239,.25);
+}
+
+.login-box button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#F4A261,#E76F51);
+    color:#fff;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    margin-bottom:15px;
+}
+
+.login-box button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+.guest-btn{
+    background:linear-gradient(135deg,#6BCB77,#4CAF50) !important;
+}
+
+.guest-btn:hover{
+    transform:translateY(-3px);
+}
+
+@media(max-width:480px){
+
+    .login-box{
+        padding:30px 20px;
+    }
+
+    .login-box h1{
+        font-size:26px;
+    }
+
+    .logo{
+        width:75px;
+        height:75px;
+        font-size:36px;
+    }
+
+}
