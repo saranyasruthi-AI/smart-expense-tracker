@@ -538,3 +538,51 @@ animation:fadeDown .4s ease;
 z-index:9999;
 transition:.3s;
 }
+.chart-container{
+    background:#fff;
+    margin-top:25px;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.chart-container h2{
+    margin-bottom:20px;
+}
+
+#expenseChart{
+    max-width:320px;
+    margin:auto;
+}
+
+.export-buttons{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.export-buttons button{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    transition:.3s;
+}
+
+#pdfBtn{
+    background:#E76F51;
+}
+
+#csvBtn{
+    background:#5B8DEF;
+}
+
+.export-buttons button:hover{
+    transform:translateY(-4px);
+}
