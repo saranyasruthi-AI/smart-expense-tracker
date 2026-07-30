@@ -293,6 +293,9 @@ item.innerText.toLowerCase().includes(value)
 });
 
 }
+// Load Saved Data
+displayTransactions();
+updateSummary();
 
 // ===============================
 // Load Dashboard
