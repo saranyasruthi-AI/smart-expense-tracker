@@ -524,3 +524,17 @@ footer{
 /* ===========================
    END OF CSS
 =========================== */
+.success-popup{
+position:fixed;
+top:20px;
+right:20px;
+background:linear-gradient(135deg,#6BCB77,#43AA5C);
+color:#fff;
+padding:15px 22px;
+border-radius:12px;
+font-weight:600;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+animation:fadeDown .4s ease;
+z-index:9999;
+transition:.3s;
+}
