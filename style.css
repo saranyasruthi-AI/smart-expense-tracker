@@ -617,11 +617,7 @@ color:white;
 
 body{
 
-    background:linear-gradient(
-        135deg,
-        #f5f7ff,
-        #eef2ff
-    );
+    min-height:100vh;
 
 }
 
