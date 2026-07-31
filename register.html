@@ -5,256 +5,208 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Create Account | Expense Tracker</title>
+    <title>Register - Expense Tracker</title>
+
 
     <!-- CSS -->
+
     <link rel="stylesheet" href="css/style.css">
 
+
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
 
     <!-- Font Awesome -->
+
     <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
 
 </head>
 
-<body>
 
-<div class="register-page">
 
-<div class="register-container">
+<body class="auth-body">
 
-<!-- LEFT SIDE -->
 
-<div class="register-left">
 
-<div class="logo">
+<div class="auth-container">
 
-<i class="fa-solid fa-wallet"></i>
 
-<h1>Expense Tracker</h1>
 
-</div>
+    <!-- LEFT SIDE -->
 
-<h2>Create Your Account</h2>
+    <div class="auth-left">
 
-<p>
 
-Track your income, expenses,
-budgets and reports with a beautiful dashboard.
+        <i class="fa-solid fa-wallet"></i>
 
-</p>
 
-<div class="features">
+        <h1>
+            Expense Tracker
+        </h1>
 
-<div class="feature">
 
-<i class="fa-solid fa-chart-pie"></i>
+        <p>
+            Create your account and start
+            managing your money smartly.
+        </p>
 
-<span>Analytics Dashboard</span>
-
-</div>
-
-<div class="feature">
-
-<i class="fa-solid fa-wallet"></i>
-
-<span>Track Daily Expenses</span>
-
-</div>
-
-<div class="feature">
-
-<i class="fa-solid fa-shield-heart"></i>
-
-<span>100% Secure Data</span>
-
-</div>
-
-<div class="feature">
-
-<i class="fa-solid fa-file-pdf"></i>
-
-<span>PDF Reports</span>
-
-</div>
-
-</div>
-
-<img src="images/register-banner.png"
-alt="Register">
-
-</div>
-
-<!-- RIGHT SIDE -->
-
-<div class="register-right">
-
-<form id="registerForm">
-
-<h2>Create Account</h2>
-
-<p class="subtitle">
-
-Please fill the details below
-
-</p>
-
-<div class="input-box">
-
-<i class="fa-solid fa-user"></i>
-
-<input
-type="text"
-id="fullname"
-placeholder="Full Name"
-required>
-
-</div>
-
-<div class="input-box">
-
-<i class="fa-solid fa-envelope"></i>
-
-<input
-type="email"
-id="email"
-placeholder="Email Address"
-required>
-
-</div>
-
-<div class="input-box">
-
-<i class="fa-solid fa-phone"></i>
-
-<input
-type="tel"
-id="mobile"
-placeholder="Mobile Number"
-required>
-
-</div>
-<div class="input-box">
-
-    <i class="fa-solid fa-lock"></i>
-
-    <input
-    type="password"
-    id="password"
-    placeholder="Create Password"
-    required>
-
-</div>
-
-<div class="input-box">
-
-    <i class="fa-solid fa-lock"></i>
-
-    <input
-    type="password"
-    id="confirmPassword"
-    placeholder="Confirm Password"
-    required>
-
-</div>
-
-<div class="row">
-
-    <div class="input-group">
-
-        <label>Gender</label>
-
-        <select id="gender" required>
-
-            <option value="">Select</option>
-
-            <option>Female</option>
-
-            <option>Male</option>
-
-            <option>Other</option>
-
-        </select>
 
     </div>
 
-    <div class="input-group">
 
-        <label>Date of Birth</label>
 
-        <input
-        type="date"
-        id="dob"
-        required>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="auth-right">
+
+
+        <h2>
+            Create Account
+        </h2>
+
+
+        <p class="subtitle">
+            Register to continue
+        </p>
+
+
+
+        <form id="registerForm">
+
+
+
+            <div class="input-box">
+
+
+                <i class="fa-solid fa-user"></i>
+
+
+                <input
+                type="text"
+                id="name"
+                placeholder="Enter your name"
+                required>
+
+
+            </div>
+
+
+
+
+
+            <div class="input-box">
+
+
+                <i class="fa-solid fa-envelope"></i>
+
+
+                <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required>
+
+
+            </div>
+
+
+
+
+
+            <div class="input-box">
+
+
+                <i class="fa-solid fa-phone"></i>
+
+
+                <input
+                type="tel"
+                id="phone"
+                placeholder="Enter phone number"
+                required>
+
+
+            </div>
+
+
+
+
+
+            <div class="input-box">
+
+
+                <i class="fa-solid fa-lock"></i>
+
+
+                <input
+                type="password"
+                id="password"
+                placeholder="Create password"
+                required>
+
+
+            </div>
+
+
+
+
+
+            <button
+            type="submit"
+            class="auth-btn">
+
+
+                Register
+
+
+            </button>
+
+
+
+
+        </form>
+
+
+
+
+
+        <p class="auth-link">
+
+
+            Already have an account?
+
+
+            <a href="login.html">
+                Login
+            </a>
+
+
+        </p>
+
+
 
     </div>
 
-</div>
 
-<div class="terms">
 
-<label>
-
-<input type="checkbox" required>
-
-I agree to the Terms & Conditions
-
-</label>
 
 </div>
 
-<button
-type="submit"
-class="register-btn">
 
-<i class="fa-solid fa-user-plus"></i>
 
-Create Account
+<script src="js/script.js"></script>
 
-</button>
-
-<p class="login-text">
-
-Already have an account?
-
-<a href="login.html">
-
-Login Now
-
-</a>
-
-</p>
-</form>
-
-</div>
-
-</div>
-
-<footer class="register-footer">
-
-<p>
-
-© 2026 Expense Tracker
-
-<span>|</span>
-
-Designed with
-<i class="fa-solid fa-heart"></i>
-
-by Sruthi
-
-</p>
-
-</footer>
-
-<script src="js/register.js"></script>
 
 </body>
+
 
 </html>
