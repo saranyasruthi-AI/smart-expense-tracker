@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Register</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <!-- Left Panel -->
+    <div class="left-panel">
+
+        <h1>Create Account</h1>
+
+        <p>
+            Join Expense Tracker and start managing
+            your income and expenses easily.
+        </p>
+
+        <img src="images/register-banner.png"
+             alt="Register">
+
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+
+        <form id="registerForm">
+
+            <h2>Create Account ✨</h2>
+
+            <p class="subtitle">
+                Fill your details below
+            </p>
+
+            <div class="input-box">
+                <i class="fa-solid fa-user"></i>
+                <input type="text"
+                       id="name"
+                       placeholder="Full Name"
+                       required>
+            </div>
+
+            <div class="input-box">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email"
+                       id="email"
+                       placeholder="Email Address"
+                       required>
+            </div>
+
+            <div class="input-box">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password"
+                       id="password"
+                       placeholder="Password"
+                       required>
+            </div>
+
+            <div class="input-box">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password"
+                       id="confirmPassword"
+                       placeholder="Confirm Password"
+                       required>
+            </div>
+
+            <button class="login-btn">
+                Register
+            </button>
+
+            <p class="register-text">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="js/register.js"></script>
+
+</body>
+</html>
