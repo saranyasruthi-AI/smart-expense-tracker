@@ -608,3 +608,1022 @@ background:#7C3AED;
 color:white;
 
 }
+/* =====================================
+   DASHBOARD MAIN STYLE - PART 1
+===================================== */
+
+
+/* Dashboard Body */
+
+body{
+
+    background:linear-gradient(
+        135deg,
+        #f5f7ff,
+        #eef2ff
+    );
+
+}
+
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+
+.dashboard-navbar{
+
+    width:100%;
+
+    padding:20px 50px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:white;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+.brand i{
+
+    font-size:30px;
+
+    color:#7c3aed;
+
+}
+
+
+.brand h2{
+
+    font-size:24px;
+
+    color:#333;
+
+}
+
+
+
+
+
+.dashboard-navbar nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+
+
+.dashboard-navbar nav a{
+
+    text-decoration:none;
+
+    color:#555;
+
+    font-weight:500;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    transition:.3s;
+
+}
+
+
+
+.dashboard-navbar nav a:hover,
+.dashboard-navbar nav .active{
+
+    color:#7c3aed;
+
+}
+
+
+
+
+#logoutBtn{
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+    90deg,
+    #7c3aed,
+    #ec4899
+    );
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+
+
+/* =========================
+   DASHBOARD CONTAINER
+========================= */
+
+
+.dashboard-container{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:40px auto;
+
+}
+
+
+
+
+
+/* =========================
+   WELCOME SECTION
+========================= */
+
+
+.welcome-section{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+
+
+.welcome-section h1{
+
+    font-size:34px;
+
+    color:#222;
+
+}
+
+
+
+.welcome-section span{
+
+    color:#7c3aed;
+
+}
+
+
+
+.welcome-section p{
+
+    color:#666;
+
+    margin-top:8px;
+
+}
+
+
+
+.date-box{
+
+    background:white;
+
+    padding:15px 25px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.08);
+
+}
+
+
+
+.date-box i{
+
+    color:#7c3aed;
+
+}
+/* =====================================
+   DASHBOARD SUMMARY CARDS - PART 2
+===================================== */
+
+
+.summary-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
+    margin-bottom:40px;
+
+}
+
+
+
+
+
+.summary-card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:25px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,.08);
+
+    transition:.4s;
+
+    cursor:pointer;
+
+}
+
+
+
+.summary-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 20px 45px rgba(0,0,0,.15);
+
+}
+
+
+
+
+.card-icon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+    color:white;
+
+}
+
+
+
+
+
+.balance-card .card-icon{
+
+    background:linear-gradient(
+    135deg,
+    #7c3aed,
+    #a855f7
+    );
+
+}
+
+
+
+.income-card .card-icon{
+
+    background:linear-gradient(
+    135deg,
+    #10b981,
+    #34d399
+    );
+
+}
+
+
+
+.expense-card .card-icon{
+
+    background:linear-gradient(
+    135deg,
+    #ef4444,
+    #fb7185
+    );
+
+}
+
+
+
+.saving-card .card-icon{
+
+    background:linear-gradient(
+    135deg,
+    #f59e0b,
+    #fbbf24
+    );
+
+}
+
+
+
+
+
+.card-content h3{
+
+    color:#555;
+
+    font-size:16px;
+
+    font-weight:500;
+
+}
+
+
+
+.card-content h2{
+
+    font-size:28px;
+
+    margin:8px 0;
+
+    color:#222;
+
+}
+
+
+
+.card-content p{
+
+    color:#888;
+
+    font-size:13px;
+
+}
+/* =====================================
+   TRANSACTION FORM - PART 3
+===================================== */
+
+
+.transaction-section{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    margin-bottom:40px;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,.08);
+
+}
+
+
+
+.section-title h2{
+
+    font-size:28px;
+
+    color:#222;
+
+    margin-bottom:8px;
+
+}
+
+
+
+.section-title p{
+
+    color:#777;
+
+    margin-bottom:30px;
+
+}
+
+
+
+
+
+#transactionForm{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:25px;
+
+}
+
+
+
+
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+
+
+.form-group label{
+
+    font-weight:600;
+
+    color:#444;
+
+}
+
+
+
+
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+
+    width:100%;
+
+    padding:15px 18px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:15px;
+
+    background:#f5f7ff;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+
+
+    background:white;
+
+    border:2px solid #7c3aed;
+
+    box-shadow:
+    0 0 15px rgba(124,58,237,.2);
+
+}
+
+
+
+
+.form-group textarea{
+
+    min-height:120px;
+
+    resize:none;
+
+}
+
+
+
+
+
+.input-icon{
+
+    position:relative;
+
+}
+
+
+
+.input-icon i{
+
+    position:absolute;
+
+    left:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#7c3aed;
+
+}
+
+
+
+.input-icon input{
+
+    padding-left:50px;
+
+}
+
+
+
+
+.add-btn{
+
+
+    grid-column:1/-1;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:15px;
+
+    cursor:pointer;
+
+    background:linear-gradient(
+    90deg,
+    #7c3aed,
+    #ec4899
+    );
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+
+}
+
+
+
+.add-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 15px 30px rgba(124,58,237,.35);
+
+}
+/* =====================================
+   TRANSACTION TABLE + CHARTS - PART 4
+===================================== */
+
+
+/* =========================
+   RECENT TRANSACTIONS
+========================= */
+
+
+.recent-section{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    margin-bottom:40px;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,.08);
+
+}
+
+
+
+.section-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.section-header h2{
+
+    font-size:28px;
+
+    color:#222;
+
+}
+
+
+
+.section-header p{
+
+    color:#777;
+
+    margin-top:5px;
+
+}
+
+
+
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:#f5f7ff;
+
+    padding:12px 18px;
+
+    border-radius:15px;
+
+}
+
+
+
+.search-box i{
+
+    color:#7c3aed;
+
+}
+
+
+
+.search-box input{
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+}
+
+
+
+
+
+/* TABLE */
+
+
+.table-container{
+
+    overflow-x:auto;
+
+}
+
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+
+thead{
+
+    background:#f5f7ff;
+
+}
+
+
+
+th{
+
+    padding:15px;
+
+    text-align:left;
+
+    color:#555;
+
+}
+
+
+
+td{
+
+    padding:15px;
+
+    border-bottom:1px solid #eee;
+
+    color:#666;
+
+}
+
+
+
+tbody tr:hover{
+
+    background:#faf5ff;
+
+}
+
+
+
+
+
+/* =========================
+   CHART SECTION
+========================= */
+
+
+.chart-section{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:30px;
+
+    margin-bottom:40px;
+
+}
+
+
+
+.chart-card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,.08);
+
+}
+
+
+
+.chart-card h2{
+
+    margin-bottom:25px;
+
+    color:#222;
+
+    font-size:24px;
+
+}
+
+
+
+canvas{
+
+    max-width:100%;
+
+}
+/* =====================================
+   FOOTER + RESPONSIVE DESIGN - PART 5
+===================================== */
+
+
+/* =========================
+   FOOTER
+========================= */
+
+
+.dashboard-footer{
+
+    text-align:center;
+
+    padding:25px;
+
+    color:#777;
+
+    background:white;
+
+    margin-top:30px;
+
+    border-radius:20px;
+
+    box-shadow:
+
+    0 10px 25px rgba(0,0,0,.06);
+
+}
+
+
+
+.dashboard-footer i{
+
+    color:#ec4899;
+
+    margin-left:5px;
+
+}
+
+
+
+
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+
+
+@media(max-width:1100px){
+
+
+    .summary-cards{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .chart-section{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+}
+
+
+
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+
+@media(max-width:700px){
+
+
+    .dashboard-navbar{
+
+        flex-direction:column;
+
+        gap:20px;
+
+        padding:20px;
+
+    }
+
+
+
+    .dashboard-navbar nav{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:15px;
+
+    }
+
+
+
+
+    .dashboard-container{
+
+        width:95%;
+
+    }
+
+
+
+    .welcome-section{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+
+
+
+    .welcome-section h1{
+
+        font-size:26px;
+
+    }
+
+
+
+
+
+    .summary-cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+
+
+
+    #transactionForm{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+
+
+    .transaction-section,
+    .recent-section,
+    .chart-card{
+
+        padding:20px;
+
+    }
+
+
+
+
+    .section-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+
+
+    .search-box{
+
+        width:100%;
+
+    }
+
+
+
+}
