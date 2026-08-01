@@ -1,24 +1,42 @@
-function login() {
+// Get Login Form
+const loginForm = document.getElementById("loginForm");
 
-    const username = document.getElementById("username").value.trim();
+loginForm.addEventListener("submit", function(e){
 
-    if (username === "") {
+    e.preventDefault();
 
-        alert("Please enter your name.");
+    const email = document.getElementById("loginEmail").value.trim();
 
-        return;
+    const password = document.getElementById("loginPassword").value;
+
+    let users = JSON.parse(
+        localStorage.getItem("expenseTrackerUsers")
+    ) || [];
+
+    const user = users.find(function(item){
+
+        return item.email === email &&
+               item.password === password;
+
+    });
+
+    if(user){
+
+        localStorage.setItem(
+            "currentUser",
+            JSON.stringify(user)
+        );
+
+        alert("Login Successful!");
+
+        window.location.href = "home.html";
 
     }
 
-    localStorage.setItem("username", username);
+    else{
 
-    window.location.href = "index.html";
+        alert("Invalid Email or Password!");
 
-}
-function guestLogin() {
+    }
 
-    localStorage.setItem("username", "Guest");
-
-    window.location.href = "home.html";
-
-}
+});
