@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="css/style.css">
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,34 +9,20 @@
 
     <title>Expense Tracker Dashboard</title>
 
+    <link rel="stylesheet" href="style.css">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-
-
-    <!-- Font Awesome -->
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
-
 <body class="dashboard-body">
 
-
-<!-- =========================
-     NAVBAR
-========================= -->
-
-
 <header class="dashboard-navbar">
-
 
     <div class="brand">
 
@@ -47,26 +32,15 @@
 
     </div>
 
-
     <nav>
 
         <a href="home.html" class="active">
+
             <i class="fa-solid fa-house"></i>
+
             Home
+
         </a>
-
-
-        <a href="#">
-            <i class="fa-solid fa-chart-line"></i>
-            Reports
-        </a>
-
-
-        <a href="#">
-            <i class="fa-solid fa-user"></i>
-            Profile
-        </a>
-
 
         <button id="logoutBtn">
 
@@ -76,65 +50,44 @@
 
         </button>
 
-
     </nav>
-
 
 </header>
 
-
-
-<!-- =========================
-     DASHBOARD CONTAINER
-========================= -->
-
-
 <main class="dashboard-container">
 
+<section class="welcome-section">
 
-    <section class="welcome-section">
+    <div>
 
+        <h1>
 
-        <div>
+            Welcome, <span id="username">User</span> 👋
 
-            <h1>
-                Welcome Back, <span id="username">User</span> 👋
-            </h1>
+        </h1>
 
+        <p>
 
-            <p>
-                Manage your money smartly and track your daily expenses.
-            </p>
+            Manage your income and expenses easily.
 
+        </p>
 
-        </div>
+    </div>
 
+    <div class="date-box">
 
-        <div class="date-box">
+        <i class="fa-solid fa-calendar-days"></i>
 
-            <i class="fa-solid fa-calendar"></i>
+        <span id="currentDate"></span>
 
-            <span id="currentDate">
-                Today
-            </span>
+    </div>
 
-
-        </div>
-
-
-    </section>
-    <!-- =========================
-     SUMMARY CARDS
-========================= -->
-
+</section>
 
 <section class="summary-cards">
-
-
-    <!-- Balance Card -->
+        <!-- Balance Card -->
 
     <div class="summary-card balance-card">
-
 
         <div class="card-icon">
 
@@ -142,22 +95,13 @@
 
         </div>
 
-
         <div class="card-content">
 
             <h3>Total Balance</h3>
 
-            <h2>
-                ₹ <span id="totalBalance">0</span>
-            </h2>
-
-            <p>
-                Available Amount
-            </p>
-
+            <h2>₹ <span id="totalBalance">0</span></h2>
 
         </div>
-
 
     </div>
 
@@ -167,35 +111,21 @@
 
     <div class="summary-card income-card">
 
-
         <div class="card-icon">
 
             <i class="fa-solid fa-arrow-trend-up"></i>
 
         </div>
 
-
         <div class="card-content">
-
 
             <h3>Total Income</h3>
 
-
-            <h2>
-                ₹ <span id="totalIncome">0</span>
-            </h2>
-
-
-            <p>
-                Money Added
-            </p>
-
+            <h2>₹ <span id="totalIncome">0</span></h2>
 
         </div>
 
-
     </div>
-
 
 
 
@@ -203,35 +133,21 @@
 
     <div class="summary-card expense-card">
 
-
         <div class="card-icon">
 
             <i class="fa-solid fa-arrow-trend-down"></i>
 
         </div>
 
-
         <div class="card-content">
-
 
             <h3>Total Expense</h3>
 
-
-            <h2>
-                ₹ <span id="totalExpense">0</span>
-            </h2>
-
-
-            <p>
-                Money Spent
-            </p>
-
+            <h2>₹ <span id="totalExpense">0</span></h2>
 
         </div>
 
-
     </div>
-
 
 
 
@@ -239,362 +155,200 @@
 
     <div class="summary-card saving-card">
 
-
         <div class="card-icon">
 
             <i class="fa-solid fa-piggy-bank"></i>
 
         </div>
 
-
         <div class="card-content">
 
+            <h3>Total Savings</h3>
 
-            <h3>Savings</h3>
-
-
-            <h2>
-                ₹ <span id="totalSaving">0</span>
-            </h2>
-
-
-            <p>
-                Your Savings
-            </p>
-
+            <h2>₹ <span id="totalSaving">0</span></h2>
 
         </div>
 
-
     </div>
 
-
-
 </section>
-<!-- =========================
-     ADD TRANSACTION SECTION
-========================= -->
 
+
+
+<!-- Transaction Form -->
 
 <section class="transaction-section">
 
-
     <div class="section-title">
+                <div class="form-group">
 
-        <h2>
-            Add New Transaction
-        </h2>
-
-        <p>
-            Record your income and expenses
-        </p>
-
-    </div>
-
-
-
-    <form id="transactionForm">
-
-
-
-        <div class="form-group">
-
-            <label>
-                Transaction Type
-            </label>
-
+            <label>Transaction Type</label>
 
             <select id="transactionType">
 
+                <option value="">Select Type</option>
 
-                <option value="">
-                    Select Type
-                </option>
+                <option value="income">Income</option>
 
-
-                <option value="income">
-                    Income
-                </option>
-
-
-                <option value="expense">
-                    Expense
-                </option>
-
+                <option value="expense">Expense</option>
 
             </select>
-
 
         </div>
 
 
 
-
-
         <div class="form-group">
 
+            <label>Amount</label>
 
-            <label>
-                Amount
-            </label>
-
-
-            <div class="input-icon">
-
+            <div class="input-box">
 
                 <i class="fa-solid fa-indian-rupee-sign"></i>
 
-
                 <input
-                type="number"
-                id="amount"
-                placeholder="Enter Amount">
-
+                    type="number"
+                    id="amount"
+                    placeholder="Enter Amount"
+                    required>
 
             </div>
 
-
         </div>
-
-
 
 
 
         <div class="form-group">
 
-
-            <label>
-                Category
-            </label>
-
+            <label>Category</label>
 
             <select id="category">
 
+                <option value="">Select Category</option>
 
-                <option value="">
-                    Select Category
-                </option>
+                <option value="Food">Food</option>
 
+                <option value="Shopping">Shopping</option>
 
-                <option>
-                    Food
-                </option>
+                <option value="Travel">Travel</option>
 
+                <option value="Education">Education</option>
 
-                <option>
-                    Shopping
-                </option>
+                <option value="Salary">Salary</option>
 
-
-                <option>
-                    Travel
-                </option>
-
-
-                <option>
-                    Education
-                </option>
-
-
-                <option>
-                    Salary
-                </option>
-
-
-                <option>
-                    Other
-                </option>
-
+                <option value="Other">Other</option>
 
             </select>
 
-
         </div>
-
-
 
 
 
         <div class="form-group">
 
-
-            <label>
-                Date
-            </label>
-
+            <label>Date</label>
 
             <input
-            type="date"
-            id="transactionDate">
-
+                type="date"
+                id="transactionDate"
+                required>
 
         </div>
-
-
 
 
 
         <div class="form-group">
 
-
-            <label>
-                Description
-            </label>
-
+            <label>Description</label>
 
             <textarea
-            id="description"
-            placeholder="Write note..."></textarea>
-
+                id="description"
+                placeholder="Enter Description"></textarea>
 
         </div>
-
-
 
 
 
         <button
-        type="submit"
-        class="add-btn">
-
+            type="submit"
+            class="add-btn">
 
             <i class="fa-solid fa-plus"></i>
 
-
             Add Transaction
-
 
         </button>
 
-
-
     </form>
 
-
-
 </section>
-<!-- =========================
+    <!-- =========================
      RECENT TRANSACTIONS
 ========================= -->
 
-
 <section class="recent-section">
-
 
     <div class="section-header">
 
-
         <div>
 
-            <h2>
-                Recent Transactions
-            </h2>
+            <h2>Recent Transactions</h2>
 
-            <p>
-                Your latest income and expenses
-            </p>
+            <p>Your latest income and expense history</p>
 
         </div>
-
-
 
         <div class="search-box">
 
-
-            <i class="fa-solid fa-search"></i>
-
+            <i class="fa-solid fa-magnifying-glass"></i>
 
             <input
-            type="text"
-            id="searchTransaction"
-            placeholder="Search transaction">
-
+                type="text"
+                id="searchTransaction"
+                placeholder="Search transaction...">
 
         </div>
 
-
     </div>
-
-
-
-
 
     <div class="table-container">
 
-
         <table>
-
 
             <thead>
 
-
                 <tr>
 
-
-                    <th>
-                        Type
-                    </th>
-
-
-                    <th>
-                        Category
-                    </th>
-
-
-                    <th>
-                        Amount
-                    </th>
-
-
-                    <th>
-                        Date
-                    </th>
-
-
-                    <th>
-                        Action
-                    </th>
-
+                    <th>Type</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Action</th>
 
                 </tr>
-
 
             </thead>
 
-
-
             <tbody id="transactionList">
-
-
-                <!-- Transactions will appear here -->
-
 
                 <tr>
 
+                    <td colspan="6" style="text-align:center;">
 
-                    <td colspan="5">
-
-                        No transactions available
+                        No Transactions Found
 
                     </td>
 
-
                 </tr>
-
 
             </tbody>
 
-
-
         </table>
-
 
     </div>
 
-
 </section>
-
-
 
 
 
@@ -602,49 +356,32 @@
      CHART SECTION
 ========================= -->
 
-
 <section class="chart-section">
-
 
     <div class="chart-card">
 
-
-        <h2>
-            Expense Analysis
-        </h2>
-
+        <h2>Expense Analysis</h2>
 
         <canvas id="expenseChart"></canvas>
 
-
     </div>
-
-
-
-
 
     <div class="chart-card">
 
-
-        <h2>
-            Income vs Expense
-        </h2>
-
+        <h2>Income vs Expense</h2>
 
         <canvas id="incomeExpenseChart"></canvas>
 
-
     </div>
 
-
 </section>
-<!-- =========================
+    <!-- =========================
      FOOTER
 ========================= -->
 
+</main>
 
 <footer class="dashboard-footer">
-
 
     <p>
 
@@ -652,28 +389,24 @@
 
         <span>|</span>
 
-        Manage your money smartly
+        Manage Your Money Smartly
 
         <i class="fa-solid fa-heart"></i>
 
     </p>
 
-
 </footer>
-
-
-
 
 
 <!-- =========================
      JAVASCRIPT
 ========================= -->
 
-
-<script src="js/home.js"></script>
-
+<script src="home.js"></script>
 
 </body>
 
-
 </html>
+
+    
+    
