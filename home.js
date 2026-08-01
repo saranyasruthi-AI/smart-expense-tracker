@@ -1,24 +1,30 @@
-// ==========================================
+// =======================================
 // EXPENSE TRACKER - HOME PAGE
 // PART 1
-// ==========================================
+// =======================================
 
 // Logged In User
 const currentUser = JSON.parse(
     localStorage.getItem("currentUser")
 );
 
-// Show Username
-const username = document.getElementById("username");
+// Redirect if not logged in
+if (!currentUser) {
 
-if (currentUser) {
-
-    username.textContent = currentUser.name;
+    window.location.href = "login.html";
 
 }
 
+// Username
+const username =
+document.getElementById("username");
+
+username.textContent =
+currentUser.name;
+
 // Current Date
-const currentDate = document.getElementById("currentDate");
+const currentDate =
+document.getElementById("currentDate");
 
 const today = new Date();
 
@@ -35,17 +41,16 @@ today.toLocaleDateString("en-IN", {
 
 });
 
-// Transactions Array
-let transactions =
-JSON.parse(
-localStorage.getItem("transactions")
+// Transactions
+let transactions = JSON.parse(
+    localStorage.getItem("transactions")
 ) || [];
 
 // Form
 const transactionForm =
 document.getElementById("transactionForm");
 
-// Transaction List
+// Transaction Table
 const transactionList =
 document.getElementById("transactionList");
 
@@ -60,18 +65,16 @@ const totalExpense =
 document.getElementById("totalExpense");
 
 const totalSaving =
-document.getElementById("totalsaving");
-// ==========================================
+document.getElementById("totalSaving");
+// =======================================
 // PART 2 - ADD TRANSACTION
-// ==========================================
+// =======================================
 
-// Form Submit
 transactionForm.addEventListener(
     "submit",
     addTransaction
 );
 
-// Add Transaction Function
 function addTransaction(event) {
 
     event.preventDefault();
@@ -80,7 +83,7 @@ function addTransaction(event) {
     document.getElementById("transactionType").value;
 
     const amount =
-    Number(document.getElementById("amount").value);
+    parseFloat(document.getElementById("amount").value);
 
     const category =
     document.getElementById("category").value;
@@ -91,9 +94,9 @@ function addTransaction(event) {
     const description =
     document.getElementById("description").value.trim();
 
-    // Validation
     if (
         type === "" ||
+        isNaN(amount) ||
         amount <= 0 ||
         category === "" ||
         date === ""
@@ -105,7 +108,6 @@ function addTransaction(event) {
 
     }
 
-    // Create Transaction
     const transaction = {
 
         id: Date.now(),
@@ -122,276 +124,231 @@ function addTransaction(event) {
 
     };
 
-    // Save
     transactions.push(transaction);
 
     localStorage.setItem(
+
         "transactions",
+
         JSON.stringify(transactions)
+
     );
 
-    // Reset Form
     transactionForm.reset();
 
-    // Refresh UI
     displayTransactions();
 
     updateSummary();
 
+    updateCharts();
+
 }
-// ==========================================
-// PART 3 - DISPLAY TRANSACTIONS
-// ==========================================
+<!-- Dashboard Section -->
+<section id="dashboard" class="section">
 
-function displayTransactions() {
+    <div class="cards">
 
-    transactionList.innerHTML = "";
+        <div class="card income-card">
+            <h3>Total Income</h3>
+            <h2 id="totalIncome">₹0</h2>
+        </div>
 
-    if (transactions.length === 0) {
+        <div class="card expense-card">
+            <h3>Total Expense</h3>
+            <h2 id="totalExpense">₹0</h2>
+        </div>
 
-        transactionList.innerHTML = `
+        <div class="card balance-card">
+            <h3>Balance</h3>
+            <h2 id="balance">₹0</h2>
+        </div>
 
-        <tr>
+    </div>
 
-            <td colspan="6" style="text-align:center;">
 
-                No Transactions Found
+    <div class="chart-container">
 
-            </td>
+        <h2>Expense Analysis</h2>
 
-        </tr>
+        <canvas id="expenseChart"></canvas>
 
-        `;
+    </div>
 
-        return;
+</section>
 
-    }
 
-    transactions.forEach(function(transaction) {
 
-        const row = document.createElement("tr");
+<!-- Add Transaction Section -->
 
-        row.innerHTML = `
+<section id="transaction" class="section">
 
-        <td>${transaction.type}</td>
+    <div class="form-box">
 
-        <td>${transaction.category}</td>
+        <h2>Add Transaction</h2>
 
-        <td>₹ ${transaction.amount}</td>
 
-        <td>${transaction.date}</td>
+        <form id="transactionForm">
 
-        <td>${transaction.description}</td>
 
-        <td>
+            <input 
+            type="text" 
+            id="title"
+            placeholder="Transaction Title"
+            required>
 
-            <button
-                onclick="deleteTransaction(${transaction.id})">
 
-                Delete
+            <input 
+            type="number"
+            id="amount"
+            placeholder="Amount"
+            required>
 
+
+            <select id="type">
+
+                <option value="income">
+                    Income
+                </option>
+
+                <option value="expense">
+                    Expense
+                </option>
+
+            </select>
+
+
+            <input 
+            type="date"
+            id="date"
+            required>
+
+
+            <button type="submit">
+                Add Transaction
             </button>
 
-        </td>
 
-        `;
+        </form>
 
-        transactionList.appendChild(row);
 
-    });
+    </div>
 
-}
 
+</section>
+<!-- Transaction History Section -->
 
+<section id="history" class="section">
 
-// Delete Transaction
+    <div class="table-box">
 
-function deleteTransaction(id) {
+        <h2>Transaction History</h2>
 
-    transactions = transactions.filter(function(transaction) {
 
-        return transaction.id !== id;
+        <table>
 
-    });
+            <thead>
 
-    localStorage.setItem(
+                <tr>
 
-        "transactions",
+                    <th>Title</th>
 
-        JSON.stringify(transactions)
+                    <th>Amount</th>
 
-    );
+                    <th>Type</th>
 
-    display transactions();
-    update summary();
-}
-    // ==========================================
-// PART 4 - SUMMARY + SEARCH
-// ==========================================
+                    <th>Date</th>
 
-// Update Summary
-function updateSummary() {
+                    <th>Action</th>
 
-    let income = 0;
+                </tr>
 
-    let expense = 0;
+            </thead>
 
-    transactions.forEach(function(transaction) {
 
-        if (transaction.type === "income") {
+            <tbody id="transactionList">
 
-            income += transaction.amount;
+                <!-- Transactions will appear here -->
 
-        } else {
+            </tbody>
 
-            expense += transaction.amount;
 
-        }
+        </table>
 
-    });
 
-    const balance = income - expense;
+    </div>
 
-    const saving = balance;
 
-    totalIncome.textContent = income;
+</section>
 
-    totalExpense.textContent = expense;
 
-    totalBalance.textContent = balance;
 
-    totalSaving.textContent = saving;
+<!-- Reports Section -->
 
-}
+<section id="reports" class="section">
 
 
+    <div class="report-box">
 
-// Search Transactions
-const searchInput =
-document.getElementById("searchTransaction");
+        <h2>Reports</h2>
 
-searchInput.addEventListener("keyup", function () {
 
-    const value = this.value.toLowerCase();
+        <button id="downloadPDF">
 
-    const rows =
-    transactionList.querySelectorAll("tr");
+            Download PDF
 
-    rows.forEach(function(row) {
+        </button>
 
-        if (
-            row.innerText
-            .toLowerCase()
-            .includes(value)
-        ) {
 
-            row.style.display = "";
+    </div>
 
-        } else {
 
-            row.style.display = "none";
+</section>
 
-        }
 
-    });
 
-});
-// ==========================================
-// PART 5 - LOGOUT + CHARTS + INITIAL LOAD
-// ==========================================
+<!-- Profile Section -->
 
-// Logout
-const logoutBtn = document.getElementById("logoutBtn");
+<section id="profile" class="section">
 
-logoutBtn.addEventListener("click", function () {
 
-    localStorage.removeItem("currentUser");
+    <div class="profile-box">
 
-    alert("Logged out successfully!");
+        <h2>User Profile</h2>
 
-    window.location.href = "login.html";
 
-});
+        <p>
+            Name:
+            <span id="userName">
+                User
+            </span>
+        </p>
 
 
-// Expense Chart
-const expenseCanvas = document.getElementById("expenseChart");
+        <button id="logoutBtn">
 
-if (expenseCanvas) {
+            Logout
 
-    new Chart(expenseCanvas, {
+        </button>
 
-        type: "pie",
 
-        data: {
+    </div>
 
-            labels: ["Income", "Expense"],
 
-            datasets: [{
+</section>
+<!-- External Libraries -->
 
-                data: [
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-                    Number(totalIncome.textContent),
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-                    Number(totalExpense.textContent)
 
-                ],
 
-                backgroundColor: [
+<!-- JavaScript File -->
 
-                    "#10b981",
+<script src="home.js"></script>
 
-                    "#ef4444"
 
-                ]
+</body>
 
-            }]
+</html>
 
-        }
-
-    });
-
-}
-
-
-// Income vs Expense Chart
-const incomeExpenseCanvas =
-document.getElementById("incomeExpenseChart");
-
-if (incomeExpenseCanvas) {
-
-    new Chart(incomeExpenseCanvas, {
-
-        type: "bar",
-
-        data: {
-
-            labels: ["Income", "Expense"],
-
-            datasets: [{
-
-                label: "Amount",
-
-                data: [
-
-                    Number(totalIncome.textContent),
-
-                    Number(totalExpense.textContent)
-
-                ]
-
-            }]
-
-        }
-
-    });
-
-}
-
-
-// Initial Load
-displayTransactions();
-
-updateSummary();
-
-                        
