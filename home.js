@@ -1,354 +1,332 @@
-// =======================================
-// EXPENSE TRACKER - HOME PAGE
-// PART 1
-// =======================================
+document.addEventListener("DOMContentLoaded", () => {
 
-// Logged In User
-const currentUser = JSON.parse(
-    localStorage.getItem("currentUser")
-);
+    const transactionForm = document.getElementById("transactionForm");
 
-// Redirect if not logged in
-if (!currentUser) {
+    const titleInput = document.getElementById("title");
+    const amountInput = document.getElementById("amount");
+    const typeInput = document.getElementById("type");
+    const dateInput = document.getElementById("date");
 
-    window.location.href = "login.html";
+    const transactionList = document.getElementById("transactionList");
 
-}
+    const totalIncome = document.getElementById("totalIncome");
+    const totalExpense = document.getElementById("totalExpense");
+    const balance = document.getElementById("balance");
 
-// Username
-const username =
-document.getElementById("username");
 
-username.textContent =
-currentUser.name;
+    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
-// Current Date
-const currentDate =
-document.getElementById("currentDate");
 
-const today = new Date();
+    // Add Transaction
 
-currentDate.textContent =
-today.toLocaleDateString("en-IN", {
+    transactionForm.addEventListener("submit", function(e){
 
-    weekday: "long",
+        e.preventDefault();
 
-    day: "numeric",
 
-    month: "long",
+        const transaction = {
 
-    year: "numeric"
+            id: Date.now(),
 
-});
+            title: titleInput.value,
 
-// Transactions
-let transactions = JSON.parse(
-    localStorage.getItem("transactions")
-) || [];
+            amount: Number(amountInput.value),
 
-// Form
-const transactionForm =
-document.getElementById("transactionForm");
+            type: typeInput.value,
 
-// Transaction Table
-const transactionList =
-document.getElementById("transactionList");
+            date: dateInput.value
 
-// Summary
-const totalBalance =
-document.getElementById("totalBalance");
+        };
 
-const totalIncome =
-document.getElementById("totalIncome");
 
-const totalExpense =
-document.getElementById("totalExpense");
+        transactions.push(transaction);
 
-const totalSaving =
-document.getElementById("totalSaving");
-// =======================================
-// PART 2 - ADD TRANSACTION
-// =======================================
 
-transactionForm.addEventListener(
-    "submit",
-    addTransaction
-);
+        localStorage.setItem(
+            "transactions",
+            JSON.stringify(transactions)
+        );
 
-function addTransaction(event) {
 
-    event.preventDefault();
+        displayTransactions();
 
-    const type =
-    document.getElementById("transactionType").value;
+        updateSummary();
 
-    const amount =
-    parseFloat(document.getElementById("amount").value);
 
-    const category =
-    document.getElementById("category").value;
+        transactionForm.reset();
 
-    const date =
-    document.getElementById("transactionDate").value;
+    });
 
-    const description =
-    document.getElementById("description").value.trim();
 
-    if (
-        type === "" ||
-        isNaN(amount) ||
-        amount <= 0 ||
-        category === "" ||
-        date === ""
-    ) {
 
-        alert("Please fill all required fields.");
+    // Display Transactions
 
-        return;
+    function displayTransactions(){
+
+        transactionList.innerHTML = "";
+
+
+        transactions.forEach((item)=>{
+
+
+            const row = document.createElement("tr");
+
+
+            row.innerHTML = `
+
+            <td>${item.title}</td>
+
+            <td>₹${item.amount}</td>
+
+            <td>${item.type}</td>
+
+            <td>${item.date}</td>
+
+            <td>
+                <button onclick="deleteTransaction(${item.id})">
+                    Delete
+                </button>
+            </td>
+
+            `;
+
+
+            transactionList.appendChild(row);
+
+
+        });
+
 
     }
 
-    const transaction = {
 
-        id: Date.now(),
-
-        type: type,
-
-        amount: amount,
-
-        category: category,
-
-        date: date,
-
-        description: description
-
-    };
-
-    transactions.push(transaction);
-
-    localStorage.setItem(
-
-        "transactions",
-
-        JSON.stringify(transactions)
-
-    );
-
-    transactionForm.reset();
 
     displayTransactions();
 
     updateSummary();
 
-    updateCharts();
+
+});
+// Delete Transaction
+
+window.deleteTransaction = function(id){
+
+    transactions = transactions.filter(
+        (transaction) => transaction.id !== id
+    );
+
+
+    localStorage.setItem(
+        "transactions",
+        JSON.stringify(transactions)
+    );
+
+
+    displayTransactions();
+
+    updateSummary();
+
+};
+
+
+
+
+// Update Income, Expense, Balance
+
+function updateSummary(){
+
+
+    let income = 0;
+
+    let expense = 0;
+
+
+
+    transactions.forEach((item)=>{
+
+
+        if(item.type === "income"){
+
+            income += item.amount;
+
+        }
+        else{
+
+            expense += item.amount;
+
+        }
+
+
+    });
+
+
+
+    totalIncome.innerText = "₹" + income;
+
+    totalExpense.innerText = "₹" + expense;
+
+    balance.innerText = "₹" + (income - expense);
+
+
+
+    updateChart(income, expense);
+
+
+                }
+// Expense Chart
+
+let expenseChart;
+
+
+function updateChart(income, expense){
+
+
+    const ctx = document
+    .getElementById("expenseChart")
+    .getContext("2d");
+
+
+
+    if(expenseChart){
+
+        expenseChart.destroy();
+
+    }
+
+
+
+    expenseChart = new Chart(ctx, {
+
+
+        type: "pie",
+
+
+        data: {
+
+
+            labels: [
+
+                "Income",
+
+                "Expense"
+
+            ],
+
+
+            datasets: [{
+
+                data: [
+
+                    income,
+
+                    expense
+
+                ]
+
+            }]
+
+
+        },
+
+
+        options: {
+
+            responsive:true
+
+        }
+
+
+    });
+
 
 }
-<!-- Dashboard Section -->
-<section id="dashboard" class="section">
 
-    <div class="cards">
 
-        <div class="card income-card">
-            <h3>Total Income</h3>
-            <h2 id="totalIncome">₹0</h2>
-        </div>
 
-        <div class="card expense-card">
-            <h3>Total Expense</h3>
-            <h2 id="totalExpense">₹0</h2>
-        </div>
 
-        <div class="card balance-card">
-            <h3>Balance</h3>
-            <h2 id="balance">₹0</h2>
-        </div>
 
-    </div>
+// Download PDF Report
 
+const pdfButton = document.getElementById("downloadPDF");
 
-    <div class="chart-container">
 
-        <h2>Expense Analysis</h2>
+if(pdfButton){
 
-        <canvas id="expenseChart"></canvas>
 
-    </div>
+pdfButton.addEventListener("click",()=>{
 
-</section>
 
+    const { jsPDF } = window.jspdf;
 
 
-<!-- Add Transaction Section -->
+    const doc = new jsPDF();
 
-<section id="transaction" class="section">
 
-    <div class="form-box">
 
-        <h2>Add Transaction</h2>
+    doc.text(
+        "Expense Tracker Report",
+        20,
+        20
+    );
 
 
-        <form id="transactionForm">
+    let y = 40;
 
 
-            <input 
-            type="text" 
-            id="title"
-            placeholder="Transaction Title"
-            required>
 
+    transactions.forEach((item)=>{
 
-            <input 
-            type="number"
-            id="amount"
-            placeholder="Amount"
-            required>
 
+        doc.text(
 
-            <select id="type">
+            `${item.title} - ₹${item.amount} - ${item.type} - ${item.date}`,
 
-                <option value="income">
-                    Income
-                </option>
+            20,
 
-                <option value="expense">
-                    Expense
-                </option>
+            y
 
-            </select>
+        );
 
 
-            <input 
-            type="date"
-            id="date"
-            required>
+        y += 10;
 
 
-            <button type="submit">
-                Add Transaction
-            </button>
+    });
 
 
-        </form>
 
+    doc.save("Expense_Report.pdf");
 
-    </div>
 
+});
 
-</section>
-<!-- Transaction History Section -->
 
-<section id="history" class="section">
+}
 
-    <div class="table-box">
 
-        <h2>Transaction History</h2>
 
 
-        <table>
+// Logout
 
-            <thead>
+const logoutBtn = document.getElementById("logoutBtn");
 
-                <tr>
 
-                    <th>Title</th>
+if(logoutBtn){
 
-                    <th>Amount</th>
 
-                    <th>Type</th>
+logoutBtn.addEventListener("click",()=>{
 
-                    <th>Date</th>
 
-                    <th>Action</th>
+    localStorage.removeItem("transactions");
 
-                </tr>
 
-            </thead>
+    alert("Logged out successfully");
 
 
-            <tbody id="transactionList">
+    location.reload();
 
-                <!-- Transactions will appear here -->
 
-            </tbody>
+});
 
 
-        </table>
-
-
-    </div>
-
-
-</section>
-
-
-
-<!-- Reports Section -->
-
-<section id="reports" class="section">
-
-
-    <div class="report-box">
-
-        <h2>Reports</h2>
-
-
-        <button id="downloadPDF">
-
-            Download PDF
-
-        </button>
-
-
-    </div>
-
-
-</section>
-
-
-
-<!-- Profile Section -->
-
-<section id="profile" class="section">
-
-
-    <div class="profile-box">
-
-        <h2>User Profile</h2>
-
-
-        <p>
-            Name:
-            <span id="userName">
-                User
-            </span>
-        </p>
-
-
-        <button id="logoutBtn">
-
-            Logout
-
-        </button>
-
-
-    </div>
-
-
-</section>
-<!-- External Libraries -->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-
-
-<!-- JavaScript File -->
-
-<script src="home.js"></script>
-
-
-</body>
-
-</html>
-
+}
