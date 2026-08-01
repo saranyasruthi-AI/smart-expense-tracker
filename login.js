@@ -1,42 +1,52 @@
-// Get Login Form
-const loginForm = document.getElementById("loginForm");
+document.addEventListener("DOMContentLoaded", function(){
 
-loginForm.addEventListener("submit", function(e){
+    const loginForm = document.getElementById("loginForm");
 
-    e.preventDefault();
 
-    const email = document.getElementById("loginEmail").value.trim();
+    loginForm.addEventListener("submit", function(e){
 
-    const password = document.getElementById("loginPassword").value;
+        e.preventDefault();
 
-    let users = JSON.parse(
-        localStorage.getItem("expenseTrackerUsers")
-    ) || [];
 
-    const user = users.find(function(item){
+        const email = document.getElementById("email").value;
 
-        return item.email === email &&
-               item.password === password;
+        const password = document.getElementById("password").value;
 
-    });
 
-    if(user){
+
+        // Simple validation
+
+        if(email === "" || password === ""){
+
+            alert("Please enter email and password");
+
+            return;
+
+        }
+
+
+
+        // Save login status
 
         localStorage.setItem(
-            "currentUser",
-            JSON.stringify(user)
+            "isLoggedIn",
+            "true"
         );
 
-        alert("Login Successful!");
+
+        localStorage.setItem(
+            "userEmail",
+            email
+        );
+
+
+
+        // Go to dashboard
 
         window.location.href = "home.html";
 
-    }
 
-    else{
+    });
 
-        alert("Invalid Email or Password!");
-
-    }
 
 });
