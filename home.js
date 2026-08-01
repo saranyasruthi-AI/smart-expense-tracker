@@ -77,19 +77,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
             row.innerHTML = `
 
-            <td>${item.title}</td>
+<td>${item.title}</td>
 
-            <td>₹${item.amount}</td>
+<td>₹${item.amount}</td>
 
-            <td>${item.type}</td>
+<td>${item.type}</td>
 
-            <td>${item.date}</td>
+<td>${item.category}</td>
 
-            <td>
-                <button onclick="deleteTransaction(${item.id})">
-                    Delete
-                </button>
-            </td>
+<td>${item.date}</td>
+
+<td>
+<button onclick="deleteTransaction(${item.id})">
+Delete
+</button>
+</td>
+
+`;
 
             `;
 
