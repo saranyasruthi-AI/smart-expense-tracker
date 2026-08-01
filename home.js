@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const titleInput = document.getElementById("title");
     const amountInput = document.getElementById("amount");
     const typeInput = document.getElementById("type");
-    const dateInput = document.getElementById("transactiondate");
     const categoryInput = document.getElementById("category");
+    const dateInput = document.getElementById("transactionDate");
 
     const transactionList = document.getElementById("transactionList");
 
@@ -14,326 +14,195 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalExpense = document.getElementById("totalExpense");
     const balance = document.getElementById("balance");
 
+    let transactions =
+        JSON.parse(localStorage.getItem("transactions")) || [];
 
-    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+    displayTransactions();
+    updateSummary();
 
-
-    // Add Transaction
-
-    transactionForm.addEventListener("submit", function(e){
+    transactionForm.addEventListener("submit", function (e) {
 
         e.preventDefault();
 
-
         const transaction = {
 
-    id: Date.now(),
+            id: Date.now(),
 
-    title: titleInput.value,
+            title: titleInput.value.trim(),
 
-    amount: Number(amountInput.value),
+            amount: Number(amountInput.value),
 
-    type: typeInput.value,
+            type: typeInput.value,
 
-    category: categoryInput.value,
+            category: categoryInput.value,
 
-    date: dateInput.value
+            date: dateInput.value
 
-};
-
+        };
 
         transactions.push(transaction);
-
 
         localStorage.setItem(
             "transactions",
             JSON.stringify(transactions)
         );
 
+        displayTransactions();
+
+        updateSummary();
+
+        transactionForm.reset();
+
+        function displayTransactions() {
+
+        transactionList.innerHTML = "";
+
+        transactions.forEach((item) => {
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${item.title}</td>
+                <td>₹${item.amount}</td>
+                <td>${item.type}</td>
+                <td>${item.category}</td>
+                <td>${item.date}</td>
+                <td>
+                    <button onclick="deleteTransaction(${item.id})">
+                        Delete
+                    </button>
+                </td>
+            `;
+
+            transactionList.appendChild(row);
+
+        });
+
+    }
+
+    function updateSummary() {
+
+        let income = 0;
+        let expense = 0;
+
+        transactions.forEach((item) => {
+
+            if (item.type === "income") {
+                income += item.amount;
+            } else {
+                expense += item.amount;
+            }
+            
+
+        });
+
+        totalIncome.innerText = "₹" + income;
+        totalExpense.innerText = "₹" + expense;
+        balance.innerText = "₹" + (income - expense);
+                updateChart(income, expense);
+
+    }
+
+    let expenseChart;
+
+    function updateChart(income, expense) {
+
+        const ctx = document
+            .getElementById("expenseChart")
+            .getContext("2d");
+
+        if (expenseChart) {
+            expenseChart.destroy();
+        }
+
+        expenseChart = new Chart(ctx, {
+
+            type: "pie",
+
+            data: {
+
+                labels: [
+                    "Income",
+                    "Expense"
+                ],
+
+                datasets: [{
+                    data: [
+                        income,
+                        expense
+                    ]
+                }]
+
+            },
+
+            options: {
+                responsive: true
+            }
+
+        });
+
+    }
+
+    window.deleteTransaction = function(id){
+
+        transactions = transactions.filter(
+            (item) => item.id !== id
+        );
+
+        localStorage.setItem(
+            "transactions",
+            JSON.stringify(transactions)
+        );
 
         displayTransactions();
 
         updateSummary();
 
+    };
+            const pdfButton = document.getElementById("downloadPDF");
 
-        transactionForm.reset();
+    if (pdfButton) {
 
-    });
+        pdfButton.addEventListener("click", () => {
 
+            const { jsPDF } = window.jspdf;
 
+            const doc = new jsPDF();
 
-    // Display Transactions
+            doc.text("Expense Tracker Report", 20, 20);
 
-    function displayTransactions(){
+            let y = 40;
 
-        transactionList.innerHTML = "";
+            transactions.forEach((item) => {
 
+                doc.text(
+                    `${item.title} | ₹${item.amount} | ${item.type} | ${item.category} | ${item.date}`,
+                    20,
+                    y
+                );
 
-        transactions.forEach((item)=>{
+                y += 10;
 
+            });
 
-            const row = document.createElement("tr");
-
-
-            row.innerHTML = `
-
-<td>${item.title}</td>
-
-<td>₹${item.amount}</td>
-
-<td>${item.type}</td>
-
-<td>${item.category}</td>
-
-<td>${item.date}</td>
-
-<td>
-<button onclick="deleteTransaction(${item.id})">
-Delete
-</button>
-</td>
-
-`;
-
-            `;
-
-
-            transactionList.appendChild(row);
-
+            doc.save("Expense_Report.pdf");
 
         });
 
+    }
+
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener("click", () => {
+
+            localStorage.removeItem("isLoggedIn");
+
+            window.location.href = "login.html";
+
+        });
 
     }
 
-
-
-    displayTransactions();
-
-    updateSummary();
-
-
 });
-// Delete Transaction
-
-window.deleteTransaction = function(id){
-
-    transactions = transactions.filter(
-        (transaction) => transaction.id !== id
-    );
-
-
-    localStorage.setItem(
-        "transactions",
-        JSON.stringify(transactions)
-    );
-
-
-    displayTransactions();
-
-    updateSummary();
-
-};
-
-
-
-
-// Update Income, Expense, Balance
-
-function updateSummary(){
-
-
-    let income = 0;
-
-    let expense = 0;
-
-
-
-    transactions.forEach((item)=>{
-
-
-        if(item.type === "income"){
-
-            income += item.amount;
-
-        }
-        else{
-
-            expense += item.amount;
-
-        }
-
-
-    });
-
-
-
-    totalIncome.innerText = "₹" + income;
-
-    totalExpense.innerText = "₹" + expense;
-
-    balance.innerText = "₹" + (income - expense);
-
-
-
-    updateChart(income, expense);
-
-
-                }
-// Expense Chart
-
-let expenseChart;
-
-
-function updateChart(income, expense){
-
-
-    const ctx = document
-    .getElementById("expenseChart")
-    .getContext("2d");
-
-
-
-    if(expenseChart){
-
-        expenseChart.destroy();
-
-    }
-
-
-
-    expenseChart = new Chart(ctx, {
-
-
-        type: "pie",
-
-
-        data: {
-
-
-            labels: [
-
-                "Income",
-
-                "Expense"
-
-            ],
-
-
-            datasets: [{
-
-                data: [
-
-                    income,
-
-                    expense
-
-                ]
-
-            }]
-
-
-        },
-
-
-        options: {
-
-            responsive:true
-
-        }
-
-
-    });
-
-
-}
-
-
-
-
-
-// Download PDF Report
-
-const pdfButton = document.getElementById("downloadPDF");
-
-
-if(pdfButton){
-
-
-pdfButton.addEventListener("click",()=>{
-
-
-    const { jsPDF } = window.jspdf;
-
-
-    const doc = new jsPDF();
-
-
-
-    doc.text(
-        "Expense Tracker Report",
-        20,
-        20
-    );
-
-
-    let y = 40;
-
-
-
-    transactions.forEach((item)=>{
-
-
-        doc.text(
-
-            `${item.title} - ₹${item.amount} - ${item.type} - ${item.date}`,
-
-            20,
-
-            y
-
-        );
-
-
-        y += 10;
-
-
-    });
-
-
-
-    doc.save("Expense_Report.pdf");
-
-
-});
-
-
-}
-
-
-
-
-// Logout
-
-const logoutBtn = document.getElementById("logoutBtn");
-
-
-if(logoutBtn){
-
-
-logoutBtn.addEventListener("click",()=>{
-
-
-    localStorage.removeItem("transactions");
-
-
-    alert("Logged out successfully");
-
-
-    location.reload();
-
-
-});
-
-
-}
