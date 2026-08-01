@@ -9,13 +9,18 @@
 
     <title>Expense Tracker Dashboard</title>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
+    <!-- Font Awesome -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
@@ -68,7 +73,7 @@
 
         <p>
 
-            Manage your income and expenses easily.
+            Manage your money smartly with your personal expense dashboard.
 
         </p>
 
@@ -101,6 +106,8 @@
 
             <h2>₹ <span id="totalBalance">0</span></h2>
 
+            <p>Available Balance</p>
+
         </div>
 
     </div>
@@ -122,6 +129,8 @@
             <h3>Total Income</h3>
 
             <h2>₹ <span id="totalIncome">0</span></h2>
+
+            <p>Money Received</p>
 
         </div>
 
@@ -145,6 +154,8 @@
 
             <h2>₹ <span id="totalExpense">0</span></h2>
 
+            <p>Money Spent</p>
+
         </div>
 
     </div>
@@ -167,6 +178,8 @@
 
             <h2>₹ <span id="totalSaving">0</span></h2>
 
+            <p>Current Savings</p>
+
         </div>
 
     </div>
@@ -175,16 +188,26 @@
 
 
 
-<!-- Transaction Form -->
+<!-- =========================
+     ADD TRANSACTION
+========================= -->
 
 <section class="transaction-section">
 
     <div class="section-title">
+
+        <h2>Add New Transaction</h2>
+
+        <p>Record your income and expenses.</p>
+
+    </div>
+
+    <form id="transactionForm">
                 <div class="form-group">
 
             <label>Transaction Type</label>
 
-            <select id="transactionType">
+            <select id="transactionType" required>
 
                 <option value="">Select Type</option>
 
@@ -202,17 +225,11 @@
 
             <label>Amount</label>
 
-            <div class="input-box">
-
-                <i class="fa-solid fa-indian-rupee-sign"></i>
-
-                <input
-                    type="number"
-                    id="amount"
-                    placeholder="Enter Amount"
-                    required>
-
-            </div>
+            <input
+                type="number"
+                id="amount"
+                placeholder="Enter Amount"
+                required>
 
         </div>
 
@@ -222,9 +239,11 @@
 
             <label>Category</label>
 
-            <select id="category">
+            <select id="category" required>
 
                 <option value="">Select Category</option>
+
+                <option value="Salary">Salary</option>
 
                 <option value="Food">Food</option>
 
@@ -234,7 +253,9 @@
 
                 <option value="Education">Education</option>
 
-                <option value="Salary">Salary</option>
+                <option value="Bills">Bills</option>
+
+                <option value="Health">Health</option>
 
                 <option value="Other">Other</option>
 
@@ -281,8 +302,8 @@
 
     </form>
 
-</section>
-    <!-- =========================
+                </section>
+             <!-- =========================
      RECENT TRANSACTIONS
 ========================= -->
 
@@ -320,10 +341,15 @@
                 <tr>
 
                     <th>Type</th>
+
                     <th>Category</th>
+
                     <th>Amount</th>
+
                     <th>Date</th>
+
                     <th>Description</th>
+
                     <th>Action</th>
 
                 </tr>
@@ -397,7 +423,6 @@
 
 </footer>
 
-
 <!-- =========================
      JAVASCRIPT
 ========================= -->
@@ -407,6 +432,3 @@
 </body>
 
 </html>
-
-    
-    
