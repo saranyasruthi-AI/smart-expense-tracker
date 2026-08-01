@@ -9,19 +9,10 @@
 
     <title>Expense Tracker Dashboard</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -39,220 +30,103 @@
 
     <nav>
 
-        <a href="home.html" class="active">
+        <a href="#dashboard">Dashboard</a>
 
-            <i class="fa-solid fa-house"></i>
+        <a href="#transaction">Add Transaction</a>
 
-            Home
+        <a href="#history">History</a>
 
-        </a>
-
-        <button id="logoutBtn">
-
-            <i class="fa-solid fa-right-from-bracket"></i>
-
-            Logout
-
-        </button>
+        <a href="#reports">Reports</a>
 
     </nav>
 
+    <button id="logoutBtn">Logout</button>
+
 </header>
 
-<main class="dashboard-container">
+<div class="dashboard-container">
 
 <section class="welcome-section">
 
     <div>
 
-        <h1>
+        <h1>Welcome 👋</h1>
 
-            Welcome, <span id="username">User</span> 👋
-
-        </h1>
-
-        <p>
-
-            Manage your money smartly with your personal expense dashboard.
-
-        </p>
-
-    </div>
-
-    <div class="date-box">
-
-        <i class="fa-solid fa-calendar-days"></i>
-
-        <span id="currentDate"></span>
+        <p>Manage your income and expenses easily.</p>
 
     </div>
 
 </section>
 
-<section class="summary-cards">
-        <!-- Balance Card -->
+<section id="dashboard">
 
-    <div class="summary-card balance-card">
+<div class="summary-cards">
 
-        <div class="card-icon">
+<div class="summary-card balance-card">
 
-            <i class="fa-solid fa-wallet"></i>
+<div class="card-icon">
+<i class="fa-solid fa-wallet"></i>
+</div>
 
-        </div>
+<div class="card-content">
+<h3>Balance</h3>
+<h2 id="balance">₹0</h2>
+</div>
 
-        <div class="card-content">
+</div>
 
-            <h3>Total Balance</h3>
+<div class="summary-card income-card">
 
-            <h2>₹ <span id="totalBalance">0</span></h2>
+<div class="card-icon">
+<i class="fa-solid fa-arrow-trend-up"></i>
+</div>
 
-            <p>Available Balance</p>
+<div class="card-content">
+<h3>Income</h3>
+<h2 id="totalIncome">₹0</h2>
+</div>
 
-        </div>
+</div>
 
-    </div>
+<div class="summary-card expense-card">
 
+<div class="card-icon">
+<i class="fa-solid fa-arrow-trend-down"></i>
+</div>
 
+<div class="card-content">
+<h3>Expense</h3>
+<h2 id="totalExpense">₹0</h2>
+</div>
 
-    <!-- Income Card -->
+</div>
 
-    <div class="summary-card income-card">
-
-        <div class="card-icon">
-
-            <i class="fa-solid fa-arrow-trend-up"></i>
-
-        </div>
-
-        <div class="card-content">
-
-            <h3>Total Income</h3>
-
-            <h2>₹ <span id="totalIncome">0</span></h2>
-
-            <p>Money Received</p>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- Expense Card -->
-
-    <div class="summary-card expense-card">
-
-        <div class="card-icon">
-
-            <i class="fa-solid fa-arrow-trend-down"></i>
-
-        </div>
-
-        <div class="card-content">
-
-            <h3>Total Expense</h3>
-
-            <h2>₹ <span id="totalExpense">0</span></h2>
-
-            <p>Money Spent</p>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- Savings Card -->
-
-    <div class="summary-card saving-card">
-
-        <div class="card-icon">
-
-            <i class="fa-solid fa-piggy-bank"></i>
-
-        </div>
-
-        <div class="card-content">
-
-            <h3>Total Savings</h3>
-
-            <h2>₹ <span id="totalSaving">0</span></h2>
-
-            <p>Current Savings</p>
-
-        </div>
-
-    </div>
-
+</div>
 </section>
 
-
-
-<!-- =========================
-     ADD TRANSACTION
-========================= -->
-
-<section class="transaction-section">
+<section id="transaction" class="transaction-section">
 
     <div class="section-title">
 
-        <h2>Add New Transaction</h2>
+        <h2>Add Transaction</h2>
 
-        <p>Record your income and expenses.</p>
+        <p>Add your income and expenses.</p>
 
     </div>
 
     <form id="transactionForm">
-                <div class="form-group">
 
-            <label>Transaction Type</label>
+        <div class="form-group">
 
-            <select id="transactionType" required>
+            <label>Title</label>
 
-                <option value="">Select Type</option>
-
-                <option value="income">Income</option>
-
-                <option value="expense">Expense</option>
-
-            </select>
-                    <div class="form-group">
-
-    <label>Category</label>
-
-    <select id="category" required>
-
-        <option value="🍔 Food">
-            🍔 Food
-        </option>
-
-        <option value="💰 Salary">
-            💰 Salary
-        </option>
-
-        <option value="🛒 Shopping">
-            🛒 Shopping
-        </option>
-
-        <option value="🚗 Transport">
-            🚗 Transport
-        </option>
-
-        <option value="📚 Education">
-            📚 Education
-        </option>
-
-        <option value="🎁 Other">
-            🎁 Other
-        </option>
-
-    </select>
-
-                    </div>
+            <input
+                type="text"
+                id="title"
+                placeholder="Enter Title"
+                required>
 
         </div>
-
-
 
         <div class="form-group">
 
@@ -266,7 +140,19 @@
 
         </div>
 
+        <div class="form-group">
 
+            <label>Type</label>
+
+            <select id="type" required>
+
+                <option value="income">Income</option>
+
+                <option value="expense">Expense</option>
+
+            </select>
+
+        </div>
 
         <div class="form-group">
 
@@ -274,29 +160,25 @@
 
             <select id="category" required>
 
-                <option value="">Select Category</option>
+                <option value="💰 Salary">💰 Salary</option>
 
-                <option value="Salary">Salary</option>
+                <option value="🍔 Food">🍔 Food</option>
 
-                <option value="Food">Food</option>
+                <option value="🛒 Shopping">🛒 Shopping</option>
 
-                <option value="Shopping">Shopping</option>
+                <option value="🚗 Travel">🚗 Travel</option>
 
-                <option value="Travel">Travel</option>
+                <option value="📚 Education">📚 Education</option>
 
-                <option value="Education">Education</option>
+                <option value="💡 Bills">💡 Bills</option>
 
-                <option value="Bills">Bills</option>
+                <option value="🏥 Health">🏥 Health</option>
 
-                <option value="Health">Health</option>
-
-                <option value="Other">Other</option>
+                <option value="🎁 Other">🎁 Other</option>
 
             </select>
 
         </div>
-
-
 
         <div class="form-group">
 
@@ -309,25 +191,9 @@
 
         </div>
 
-
-
-        <div class="form-group">
-
-            <label>Description</label>
-
-            <textarea
-                id="description"
-                placeholder="Enter Description"></textarea>
-
-        </div>
-
-
-
         <button
             type="submit"
             class="add-btn">
-
-            <i class="fa-solid fa-plus"></i>
 
             Add Transaction
 
@@ -335,130 +201,93 @@
 
     </form>
 
-                </section>
-             <!-- =========================
-     RECENT TRANSACTIONS
-========================= -->
-
-<section class="recent-section">
+</section>
+<section id="history" class="recent-section">
 
     <div class="section-header">
 
-        <div>
-
-            <h2>Recent Transactions</h2>
-
-            <p>Your latest income and expense history</p>
-
-        </div>
-
-        <div class="search-box">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-                type="text"
-                id="searchTransaction"
-                placeholder="Search transaction...">
-
-        </div>
+        <h2>Transaction History</h2>
 
     </div>
 
-    <div class="table-container">
+    <table>
 
-        <table>
+        <thead>
 
-            <thead>
+            <tr>
 
-<tr>
+                <th>Title</th>
 
-<th>Title</th>
+                <th>Amount</th>
 
-<th>Amount</th>
+                <th>Type</th>
 
-<th>Type</th>
+                <th>Category</th>
 
-<th>Category</th>
+                <th>Date</th>
 
-<th>Date</th>
+                <th>Action</th>
 
-<th>Action</th>
+            </tr>
 
-</tr>
+        </thead>
 
-            </thead>
+        <tbody id="transactionList">
 
-            <tbody id="transactionList">
+            <!-- Transactions will be added here -->
 
-                <tr>
+        </tbody>
 
-                    <td colspan="6" style="text-align:center;">
-
-                        No Transactions Found
-
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
+    </table>
 
 </section>
 
-
-
-<!-- =========================
-     CHART SECTION
-========================= -->
 
 <section class="chart-section">
 
     <div class="chart-card">
 
-        <h2>Expense Analysis</h2>
+        <h2>Income vs Expense</h2>
 
         <canvas id="expenseChart"></canvas>
 
     </div>
 
-    <div class="chart-card">
+</section>
+<section id="reports" class="recent-section">
 
-        <h2>Income vs Expense</h2>
+    <div class="section-header">
 
-        <canvas id="incomeExpenseChart"></canvas>
+        <h2>Reports</h2>
 
     </div>
 
-</section>
-    <!-- =========================
-     FOOTER
-========================= -->
+    <button
+        id="downloadPDF"
+        class="add-btn">
 
-</main>
+        <i class="fa-solid fa-file-pdf"></i>
+        Download PDF Report
+
+    </button>
+
+</section>
+
 
 <footer class="dashboard-footer">
 
     <p>
-
-        © 2026 Expense Tracker
-
-        <span>|</span>
-
-        Manage Your Money Smartly
-
+        © 2026 Expense Tracker |
+        Made with
         <i class="fa-solid fa-heart"></i>
-
     </p>
 
 </footer>
+</div>
 
-<!-- =========================
-     JAVASCRIPT
-========================= -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script src="home.js"></script>
 
