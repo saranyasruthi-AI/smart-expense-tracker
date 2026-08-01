@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const titleInput = document.getElementById("title");
     const amountInput = document.getElementById("amount");
     const typeInput = document.getElementById("type");
-    const dateInput = document.getElementById("date");
+    const dateInput = document.getElementById("transactiondate");
+    const categoryInput = document.getElementById("category");
 
     const transactionList = document.getElementById("transactionList");
 
@@ -26,17 +27,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const transaction = {
 
-            id: Date.now(),
+    id: Date.now(),
 
-            title: titleInput.value,
+    title: titleInput.value,
 
-            amount: Number(amountInput.value),
+    amount: Number(amountInput.value),
 
-            type: typeInput.value,
+    type: typeInput.value,
 
-            date: dateInput.value
+    category: categoryInput.value,
 
-        };
+    date: dateInput.value
+
+};
 
 
         transactions.push(transaction);
