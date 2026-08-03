@@ -14,30 +14,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalExpense = document.getElementById("totalExpense");
     const balance = document.getElementById("balance");
 
-    let transactions =
-        JSON.parse(localStorage.getItem("transactions")) || [];
+    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
     displayTransactions();
     updateSummary();
 
     transactionForm.addEventListener("submit", function (e) {
-
         e.preventDefault();
 
         const transaction = {
-
             id: Date.now(),
-
             title: titleInput.value.trim(),
-
             amount: Number(amountInput.value),
-
             type: typeInput.value,
-
             category: categoryInput.value,
-
             date: dateInput.value
-
         };
 
         transactions.push(transaction);
@@ -48,13 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         displayTransactions();
-
         updateSummary();
-
         transactionForm.reset();
+    });
 
-        function displayTransactions() {
-
+    function displayTransactions() {
         transactionList.innerHTML = "";
 
         transactions.forEach((item) => {
@@ -77,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
             transactionList.appendChild(row);
 
         });
-
     }
 
     function updateSummary() {
@@ -87,63 +75,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
         transactions.forEach((item) => {
 
-            if (item.type === "income") {
+            if (item.type.toLowerCase() === "income") {
                 income += item.amount;
             } else {
                 expense += item.amount;
             }
-            
 
         });
 
         totalIncome.innerText = "₹" + income;
         totalExpense.innerText = "₹" + expense;
         balance.innerText = "₹" + (income - expense);
-                updateChart(income, expense);
 
+        updateChart(income, expense);
     }
 
     let expenseChart;
 
     function updateChart(income, expense) {
 
-        const ctx = document
-            .getElementById("expenseChart")
-            .getContext("2d");
+        const canvas = document.getElementById("expenseChart");
+
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
 
         if (expenseChart) {
             expenseChart.destroy();
         }
 
         expenseChart = new Chart(ctx, {
-
             type: "pie",
-
             data: {
-
-                labels: [
-                    "Income",
-                    "Expense"
-                ],
-
+                labels: ["Income", "Expense"],
                 datasets: [{
-                    data: [
-                        income,
-                        expense
-                    ]
+                    data: [income, expense]
                 }]
-
             },
-
             options: {
                 responsive: true
             }
-
         });
-
     }
 
-    window.deleteTransaction = function(id){
+    window.deleteTransaction = function (id) {
 
         transactions = transactions.filter(
             (item) => item.id !== id
@@ -155,18 +130,16 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         displayTransactions();
-
         updateSummary();
-
     };
-            const pdfButton = document.getElementById("downloadPDF");
+
+    const pdfButton = document.getElementById("downloadPDF");
 
     if (pdfButton) {
 
         pdfButton.addEventListener("click", () => {
 
             const { jsPDF } = window.jspdf;
-
             const doc = new jsPDF();
 
             doc.text("Expense Tracker Report", 20, 20);
@@ -182,13 +155,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 y += 10;
-
             });
 
             doc.save("Expense_Report.pdf");
-
         });
-
     }
 
     const logoutBtn = document.getElementById("logoutBtn");
@@ -198,7 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
         logoutBtn.addEventListener("click", () => {
 
             localStorage.removeItem("isLoggedIn");
-
             window.location.href = "login.html";
 
         });
