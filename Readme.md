@@ -25,9 +25,5 @@ Expense Tracker is a responsive web application that helps users manage their da
 1. Download or clone the repository.
 2. Open `index.html` in a web browser.
 3. Start adding your income and expenses.
-
-## 📷 Screenshots
-(Add screenshots after deployment.)
-
 ## 👩‍💻 Developed By
-Your Name
+N Saranya Sruthi 
