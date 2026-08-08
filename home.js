@@ -14,21 +14,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalExpense = document.getElementById("totalExpense");
     const balance = document.getElementById("balance");
 
-    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+    let transactions =
+        JSON.parse(localStorage.getItem("transactions")) || [];
 
-    displayTransactions();
-    updateSummary();
+
+    // =========================
+    // ADD TRANSACTION
+    // =========================
 
     transactionForm.addEventListener("submit", function (e) {
+
         e.preventDefault();
 
         const transaction = {
+
             id: Date.now(),
+
             title: titleInput.value.trim(),
+
             amount: Number(amountInput.value),
+
             type: typeInput.value,
+
             category: categoryInput.value,
+
             date: dateInput.value
+
         };
 
         transactions.push(transaction);
@@ -39,11 +50,20 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         displayTransactions();
+
         updateSummary();
+
         transactionForm.reset();
+
     });
 
+
+    // =========================
+    // DISPLAY TRANSACTIONS
+    // =========================
+
     function displayTransactions() {
+
         transactionList.innerHTML = "";
 
         transactions.forEach((item) => {
@@ -52,10 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             row.innerHTML = `
                 <td>${item.title}</td>
+
                 <td>₹${item.amount}</td>
+
                 <td>${item.type}</td>
+
                 <td>${item.category}</td>
+
                 <td>${item.date}</td>
+
                 <td>
                     <button onclick="deleteTransaction(${item.id})">
                         Delete
@@ -66,62 +91,118 @@ document.addEventListener("DOMContentLoaded", () => {
             transactionList.appendChild(row);
 
         });
+
     }
+
+
+    // =========================
+    // UPDATE SUMMARY
+    // =========================
 
     function updateSummary() {
 
         let income = 0;
+
         let expense = 0;
 
         transactions.forEach((item) => {
 
-            if (item.type.toLowerCase() === "income") {
+            if (item.type === "income") {
+
                 income += item.amount;
+
             } else {
+
                 expense += item.amount;
+
             }
 
         });
 
         totalIncome.innerText = "₹" + income;
+
         totalExpense.innerText = "₹" + expense;
+
         balance.innerText = "₹" + (income - expense);
 
         updateChart(income, expense);
+
     }
 
-    let expenseChart;
+
+    // =========================
+    // CHART
+    // =========================
+
+    let expenseChart = null;
 
     function updateChart(income, expense) {
 
-        const canvas = document.getElementById("expenseChart");
+        const chartCanvas =
+            document.getElementById("expenseChart");
 
-        if (!canvas) return;
+        if (!chartCanvas) {
+            return;
+        }
 
-        const ctx = canvas.getContext("2d");
+        const ctx = chartCanvas.getContext("2d");
 
         if (expenseChart) {
+
             expenseChart.destroy();
+
         }
 
         expenseChart = new Chart(ctx, {
+
             type: "pie",
+
             data: {
-                labels: ["Income", "Expense"],
+
+                labels: [
+                    "Income",
+                    "Expense"
+                ],
+
                 datasets: [{
-                    data: [income, expense]
+
+                    data: [
+                        income,
+                        expense
+                    ]
+
                 }]
+
             },
+
             options: {
+
                 responsive: true
+
             }
+
         });
+
     }
+
+
+    // =========================
+    // INITIAL LOAD
+    // =========================
+
+    displayTransactions();
+
+    updateSummary();
+
+
+    // =========================
+    // DELETE TRANSACTION
+    // =========================
 
     window.deleteTransaction = function (id) {
 
         transactions = transactions.filter(
-            (item) => item.id !== id
+            (transaction) => transaction.id !== id
         );
 
         localStorage.setItem(
@@ -130,44 +211,81 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         displayTransactions();
+
         updateSummary();
+
     };
 
-    const pdfButton = document.getElementById("downloadPDF");
+
+    // =========================
+    // PDF REPORT
+    // =========================
+
+    const pdfButton =
+        document.getElementById("downloadPDF");
 
     if (pdfButton) {
 
-        pdfButton.addEventListener("click", () => {
+        pdfButton.addEventListener("click", function () {
+
+            if (!window.jspdf) {
+
+                alert("PDF library is not loaded.");
+
+                return;
+
+            }
 
             const { jsPDF } = window.jspdf;
+
             const doc = new jsPDF();
 
-            doc.text("Expense Tracker Report", 20, 20);
+            doc.text(
+                "Expense Tracker Report",
+                20,
+                20
+            );
 
             let y = 40;
 
             transactions.forEach((item) => {
 
+                if (y > 280) {
+
+                    doc.addPage();
+
+                    y = 20;
+
+                }
+
                 doc.text(
-                    `${item.title} | ₹${item.amount} | ${item.type} | ${item.category} | ${item.date}`,
+                    `${item.title} - ₹${item.amount} - ${item.type} - ${item.category} - ${item.date}`,
                     20,
                     y
                 );
 
                 y += 10;
+
             });
 
             doc.save("Expense_Report.pdf");
+
         });
+
     }
 
-    const logoutBtn = document.getElementById("logoutBtn");
+
+    // =========================
+    // LOGOUT
+    // =========================
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
 
     if (logoutBtn) {
 
-        logoutBtn.addEventListener("click", () => {
+        logoutBtn.addEventListener("click", function () {
 
-            localStorage.removeItem("isLoggedIn");
             window.location.href = "login.html";
 
         });
